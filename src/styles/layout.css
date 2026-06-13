@@ -1,0 +1,35 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.site-header,
+.site-footer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px var(--space-page);
+}
+
+.site-header {
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10;
+}
+
+.site-logo,
+.site-nav a {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.site-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.site-footer {
+  color: var(--color-muted);
+  font-size: 14px;
+}

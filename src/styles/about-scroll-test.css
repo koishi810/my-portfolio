@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@200;900&display=swap");
+
+.about-test-page {
+  background: #050505;
+  min-height: 100svh;
+}
+
+.about-test-scroll-section {
+  height: 300vh;
+  position: relative;
+}
+
+.about-test-sticky-stage {
+  align-items: center;
+  background: #050505;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+.about-test-design-stage-shell {
+  flex: 0 0 auto;
+  overflow: visible;
+  position: relative;
+}
+
+.about-test-design-stage {
+  background: #050505;
+  height: 905px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transform-origin: top left;
+  width: 1440px;
+}
+
+.about-test-background-layer {
+  height: 1048.698px;
+  left: -65.683px;
+  pointer-events: none;
+  position: absolute;
+  top: -110.462px;
+  width: 1572.855px;
+  z-index: 0;
+}
+
+.about-test-background-layer img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.about-test-mask-layer {
+  backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.7);
+  height: 1017px;
+  left: -14.499px;
+  pointer-events: none;
+  position: absolute;
+  top: -58.5px;
+  width: 1474.773px;
+  z-index: 1;
+}
+
+.about-test-global-chrome {
+  color: #d9d9d9;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: difference;
+  position: absolute;
+  z-index: 5;
+}
+
+.about-test-version {
+  left: 50.752px;
+  margin: 0;
+  position: absolute;
+  top: 35.522px;
+  white-space: nowrap;
+}
+
+.about-test-version-box {
+  height: 38px;
+  left: 195px;
+  overflow: hidden;
+  position: absolute;
+  top: 25px;
+  width: 454px;
+}
+
+.about-test-version-box span {
+  animation: about-test-version-scroll 7s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+
+.about-test-nav {
+  display: flex;
+  gap: 44px;
+  left: 1152.91px;
+  margin: 0;
+  position: absolute;
+  top: 35.522px;
+  white-space: nowrap;
+  width: 230px;
+}
+
+.about-test-subject {
+  height: 632.476px;
+  left: 267.313px;
+  position: absolute;
+  width: 905.375px;
+  z-index: 3;
+}
+
+.about-test-sequence-layer {
+  height: 509.273px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 905.375px;
+  z-index: 0;
+}
+
+.about-test-text-layer {
+  color: #d9d9d9;
+  font-family: "Noto Serif JP", Georgia, serif;
+  mix-blend-mode: difference;
+  position: absolute;
+  z-index: 2;
+}
+
+.about-test-small-title {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 900;
+  gap: 4px;
+  left: 551.687px;
+  line-height: normal;
+  position: absolute;
+  top: 29.137px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  width: 14px;
+}
+
+.about-test-main-column {
+  color: #9a9a9a;
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  font-weight: 900;
+  line-height: normal;
+  position: absolute;
+  width: 32px;
+}
+
+.about-test-main-column-right {
+  left: 404.687px;
+  top: 20.137px;
+}
+
+.about-test-main-column-left {
+  left: 452.687px;
+  top: 111.137px;
+}
+
+.about-test-main-char {
+  display: block;
+  height: 46px;
+  margin-bottom: -8px;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  width: 32px;
+}
+
+.about-test-more-button {
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgba(217, 217, 217, 0.9);
+  border-radius: 999px;
+  color: #d9d9d9;
+  display: flex;
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 12px;
+  font-weight: 200;
+  height: 75.478px;
+  justify-content: center;
+  left: 414.948px;
+  line-height: normal;
+  mix-blend-mode: difference;
+  position: absolute;
+  text-decoration: none;
+  top: 557px;
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.2s ease, color 0.2s ease;
+  width: 75.478px;
+  z-index: 4;
+}
+
+.about-test-more-button:hover,
+.about-test-more-button:focus-visible {
+  background: #d9d9d9;
+  color: #050505;
+  outline: none;
+}
+
+@keyframes about-test-version-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}

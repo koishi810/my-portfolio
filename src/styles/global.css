@@ -1,0 +1,40 @@
+@import "./reset.css";
+@import "./variables.css";
+@import "./layout.css";
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.page {
+  min-height: calc(100vh - 144px);
+  padding: 120px var(--space-page);
+}
+
+.page h1 {
+  font-size: clamp(40px, 8vw, 96px);
+  line-height: 1;
+  margin: 0 0 24px;
+}
+
+.page p {
+  color: var(--color-muted);
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,8 @@
+:root {
+  --color-bg: #050505;
+  --color-text: #f2f0e8;
+  --color-muted: rgba(242, 240, 232, 0.66);
+  --font-sans: Inter, "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --space-page: 32px;
+}

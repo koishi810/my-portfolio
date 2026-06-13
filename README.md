@@ -21,6 +21,34 @@ http://localhost:5173/
 npm run build
 ```
 
+## 上线
+
+推荐使用 Vercel 部署当前 Vite 静态站点。
+
+Vercel 配置：
+
+- Build Command：`npm run build`
+- Output Directory：`dist`
+- SPA fallback：`vercel.json` 中已配置所有路由回退到 `index.html`
+
+部署流程：
+
+1. 打开 Vercel。
+2. 使用 GitHub 登录。
+3. Import `koishi810/my-portfolio`。
+4. 保持 Vite 默认构建配置。
+5. Deploy。
+
+之后每次执行：
+
+```bash
+git add .
+git commit -m "Update portfolio"
+git push
+```
+
+Vercel 会自动重新部署。
+
 ## 页面结构
 
 - `/`：首页，当前主要实现页面。

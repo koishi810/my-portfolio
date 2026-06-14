@@ -338,6 +338,16 @@ function WorksSection({ sectionRef }) {
       workItemRefs.current.forEach((item) => {
         if (!item) return;
 
+        const image = item.querySelector(".portfolio-work-image");
+        if (image) {
+          const imageBottom = image.offsetTop + image.offsetHeight;
+          const bottomOffset = window.innerWidth <= 1180 ? 48 : 56;
+          const minTop = window.innerWidth <= 1180 ? 120 : 260;
+          const maxTop = window.innerWidth <= 1180 ? window.innerHeight - 120 : 380;
+          const stickyTop = Math.min(Math.max(window.innerHeight - imageBottom - bottomOffset, minTop), maxTop);
+          item.style.setProperty("--work-sticky-top", `${stickyTop}px`);
+        }
+
         const rect = item.getBoundingClientRect();
         const clipTop = Math.max(0, Math.min(rect.height, cutoff - rect.top));
         item.style.clipPath = clipTop > 0 ? `inset(${clipTop}px 0 0 0)` : "inset(0 0 0 0)";
@@ -351,7 +361,10 @@ function WorksSection({ sectionRef }) {
     return () => {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
       workItemRefs.current.forEach((item) => {
-        if (item) item.style.clipPath = "";
+        if (item) {
+          item.style.clipPath = "";
+          item.style.removeProperty("--work-sticky-top");
+        }
       });
     };
   }, [sectionRef]);

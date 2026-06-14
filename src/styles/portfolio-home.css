@@ -393,9 +393,6 @@
 }
 
 .portfolio-phase-works .portfolio-works-title,
-.portfolio-phase-works .portfolio-work-date,
-.portfolio-phase-works .portfolio-work-type,
-.portfolio-phase-works .portfolio-work-description,
 .portfolio-phase-works .portfolio-work-text h3,
 .portfolio-phase-works .portfolio-all-works h2,
 .portfolio-phase-works .portfolio-all-works .portfolio-more-button {
@@ -452,14 +449,19 @@
 
 .portfolio-work-date,
 .portfolio-work-type,
-.portfolio-work-description,
+.portfolio-work-description {
+  color: #aeaeae;
+  font-size: 15px;
+  margin: 0;
+  mix-blend-mode: difference;
+}
+
 .portfolio-work-text h3 {
   margin: 0;
   mix-blend-mode: difference;
 }
 
 .portfolio-work-date {
-  font-size: clamp(13px, 1.04vw, 15px);
   line-height: 1.6;
 }
 
@@ -472,12 +474,10 @@
 }
 
 .portfolio-work-type {
-  font-size: clamp(15px, 1.39vw, 20px);
   line-height: 1.6;
 }
 
 .portfolio-work-description {
-  font-size: clamp(15px, 1.39vw, 20px);
   line-height: 1.6;
   white-space: pre-line;
 }
@@ -732,11 +732,6 @@
     height: auto;
     min-height: 0;
     width: 100%;
-  }
-
-  .portfolio-work-description,
-  .portfolio-work-type {
-    font-size: 16px;
   }
 
   .portfolio-work-text h3 {

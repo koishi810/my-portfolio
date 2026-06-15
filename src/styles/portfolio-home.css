@@ -480,6 +480,7 @@
 }
 
 .portfolio-work-type {
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -540,10 +541,38 @@
   width: calc(237 / 804 * 100%);
 }
 
+.portfolio-work-item-1 .portfolio-work-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18)), url("/assets/home/koko-background.png");
+  background-position: center;
+  background-size: cover;
+  filter: grayscale(1) brightness(1.12) contrast(0.78);
+}
+
+.portfolio-work-item-1 .portfolio-work-image:hover,
+.portfolio-work-item-1 .portfolio-work-image:focus-visible {
+  filter: grayscale(0) brightness(1) contrast(1);
+}
+
+.portfolio-work-item-1 .portfolio-work-image:hover::before,
+.portfolio-work-item-1 .portfolio-work-image:focus-visible::before {
+  background: transparent;
+  opacity: 0;
+}
+
 .portfolio-work-item-2 .portfolio-work-image,
 .portfolio-work-item-3 .portfolio-work-image {
   background: #8f8f8f;
   filter: grayscale(1);
+}
+
+.portfolio-work-item-2 .portfolio-work-image {
+  background: #11a5d8;
+}
+
+.portfolio-work-item-3 .portfolio-work-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08)), url("/assets/home/arctic-lab-background.png");
+  background-position: center;
+  background-size: cover;
 }
 
 .portfolio-work-item-2 .portfolio-work-image:hover,
@@ -553,14 +582,32 @@
   filter: grayscale(0);
 }
 
+.portfolio-work-item-2 .portfolio-work-image:hover::before,
+.portfolio-work-item-2 .portfolio-work-image:focus-visible::before {
+  background: transparent;
+  opacity: 0;
+}
+
+.portfolio-work-item-3 .portfolio-work-image:hover::before,
+.portfolio-work-item-3 .portfolio-work-image:focus-visible::before {
+  background: transparent;
+  opacity: 0;
+}
+
 .portfolio-work-item-2 .portfolio-work-image img {
-  max-height: 86%;
-  max-width: 86%;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  object-fit: cover;
+  width: 100%;
 }
 
 .portfolio-work-item-3 .portfolio-work-image img {
-  max-height: 78%;
-  max-width: 78%;
+  height: auto;
+  max-height: none;
+  max-width: none;
+  object-fit: contain;
+  width: calc(180 / 804 * 100%);
 }
 
 .portfolio-all-works {

@@ -22,6 +22,7 @@ const works = [
     type: "UI/UX / Interaction Prototype",
     description:
       "KOKOは、日常の場所を感覚のテクスチャーとして記録するモバイル地図プロトタイプです。\n\nユーザーはその場で10秒間長押しし、音・移動状態・時間帯・感覚語を記録します。記録はピンではなく、地図表面に沈着する点と線として現れます。",
+    href: "/works/koko",
     image: "/assets/home/koko-logo.svg",
     imageLabel: "KOKO",
   },
@@ -317,7 +318,7 @@ function WorkItem({ itemRef, work, index }) {
         <p className="portfolio-work-type">{work.type}</p>
         <p className="portfolio-work-description">{work.description}</p>
       </div>
-      <a className="portfolio-work-image" href="/works" aria-label={`${work.title} project`}>
+      <a className="portfolio-work-image" href={work.href ?? "/works"} aria-label={`${work.title} project`}>
         <img alt={work.imageLabel} src={work.image} />
       </a>
     </article>

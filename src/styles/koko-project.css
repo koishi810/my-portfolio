@@ -1,0 +1,372 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@400;700&display=swap");
+
+.koko-project-page {
+  background: #050505;
+  color: #d9d9d9;
+  min-height: 100svh;
+  overflow-x: clip;
+  position: relative;
+}
+
+.koko-horizontal-section {
+  position: relative;
+}
+
+.koko-sticky-stage {
+  align-items: center;
+  display: flex;
+  height: 100svh;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+.koko-fixed-background {
+  --koko-bg-x: 0px;
+  --koko-bg-y: 0px;
+  height: 114vh;
+  isolation: isolate;
+  left: -4vw;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: -7vh;
+  transform: translate3d(var(--koko-bg-x), var(--koko-bg-y), 0) scale(1.04);
+  transform-origin: center;
+  width: 108vw;
+  will-change: transform;
+  z-index: 0;
+}
+
+.koko-fixed-background > .koko-image-crop {
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.koko-image-crop {
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  position: relative;
+  width: 100%;
+}
+
+.koko-image-crop img {
+  height: 100%;
+  left: -41.32%;
+  max-width: none;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 144.98%;
+}
+
+.koko-fixed-background .koko-image-crop img {
+  filter: grayscale(1);
+}
+
+.koko-mask {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.koko-mask-exclusion {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.7);
+  mix-blend-mode: exclusion;
+}
+
+.koko-mask-light {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background: rgba(202, 202, 202, 0.7);
+  opacity: 0.65;
+}
+
+.koko-chrome {
+  color: #d9d9d9;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: difference;
+  position: fixed;
+  z-index: 30;
+}
+
+.koko-version {
+  color: inherit;
+  left: 50.752px;
+  mix-blend-mode: difference;
+  position: fixed;
+  text-decoration: none;
+  top: 35.522px;
+  white-space: nowrap;
+}
+
+.koko-version-box {
+  height: 38px;
+  left: 195px;
+  overflow: hidden;
+  position: fixed;
+  top: 25px;
+  width: 454px;
+}
+
+.koko-version-box span {
+  animation: koko-version-scroll 16s linear infinite;
+  display: inline-block;
+  mix-blend-mode: difference;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+
+.koko-nav {
+  display: flex;
+  gap: 44px;
+  position: fixed;
+  right: 57px;
+  top: 35.522px;
+}
+
+.koko-nav a {
+  color: inherit;
+  mix-blend-mode: difference;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.koko-design-shell {
+  flex: 0 0 auto;
+  height: 100%;
+  position: relative;
+  transform-origin: top left;
+  will-change: transform;
+  z-index: 5;
+}
+
+.koko-design-stage {
+  height: 905px;
+  left: 0;
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  transform-origin: top left;
+}
+
+.koko-main-visual {
+  height: 970.001px;
+  left: 644.42px;
+  position: absolute;
+  top: -9.45px;
+  width: 1144.989px;
+  z-index: 2;
+}
+
+.koko-difference {
+  color: #e6e6e6;
+}
+
+.koko-main-copy {
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Serif JP", Georgia, serif;
+  gap: 30px;
+  left: 109.92px;
+  position: absolute;
+  top: 656.5px;
+  white-space: nowrap;
+  width: 428px;
+  z-index: 6;
+}
+
+.koko-main-copy p,
+.koko-main-copy h1 {
+  color: #e6e6e6;
+  filter: invert(1);
+  margin: 0;
+  mix-blend-mode: difference;
+}
+
+.koko-date {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.koko-main-copy h1 {
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.koko-type {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.koko-project-intro {
+  --koko-intro-width: 357px;
+
+  bottom: var(--koko-info-bottom);
+  color: #e6e6e6;
+  filter: invert(1);
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 15px;
+  font-weight: 400;
+  height: 138px;
+  left: 2339.66px;
+  line-height: 1.6;
+  position: absolute;
+  top: auto;
+  mix-blend-mode: difference;
+  white-space: pre-wrap;
+  width: var(--koko-intro-width);
+  z-index: 6;
+}
+
+.koko-project-intro p {
+  margin: 0 0 24px;
+}
+
+.koko-metadata {
+  bottom: var(--koko-info-bottom);
+  color: #e6e6e6;
+  display: grid;
+  font-family: "Noto Serif JP", Georgia, serif;
+  gap: 40px 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  height: 384px;
+  left: 1896px;
+  margin: 0;
+  position: absolute;
+  top: auto;
+  width: 342px;
+  z-index: 6;
+}
+
+.koko-metadata-row {
+  display: contents;
+}
+
+.koko-metadata dt,
+.koko-metadata dd {
+  color: #e6e6e6;
+  filter: invert(1);
+  line-height: 1.6;
+  margin: 0;
+  mix-blend-mode: difference;
+}
+
+.koko-metadata dt {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.koko-metadata dd {
+  font-size: 15px;
+  font-weight: 400;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.koko-metadata-row:nth-child(4) dd,
+.koko-metadata-row:nth-child(6) dd {
+  justify-self: end;
+  width: 414.36px;
+}
+
+.koko-metadata-row:nth-child(5) dt,
+.koko-metadata-row:nth-child(5) dd {
+  opacity: 0.5;
+}
+
+.koko-work-page-frame {
+  aspect-ratio: 2400 / 1695;
+  background: #050505;
+  overflow: hidden;
+}
+
+.koko-work-page-frame img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  width: 100%;
+}
+
+.koko-horizontal-image-page {
+  position: absolute;
+  z-index: 4;
+}
+
+.koko-image-reading-section {
+  background: transparent;
+  color: #d9d9d9;
+  min-height: 100svh;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.koko-image-page-list {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.koko-image-page {
+  margin: 0;
+  width: min(100vw, calc(100svh * 2400 / 1695));
+}
+
+@keyframes koko-version-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 700px) {
+  .koko-chrome {
+    font-size: 12px;
+  }
+
+  .koko-version {
+    left: 16px;
+    top: 18px;
+  }
+
+  .koko-version-box {
+    display: none;
+  }
+
+  .koko-nav {
+    gap: 16px;
+    left: 16px;
+    right: auto;
+    top: 46px;
+  }
+
+  .koko-nav a {
+    font-size: 12px;
+  }
+
+  .koko-image-page {
+    width: min(100vw, calc(100svh * 2400 / 1695));
+  }
+}

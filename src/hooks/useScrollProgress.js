@@ -8,6 +8,10 @@ function lerp(from, to, amount) {
   return from + (to - from) * amount;
 }
 
+function isMobileViewport() {
+  return window.matchMedia("(max-width: 700px), (pointer: coarse)").matches;
+}
+
 export function useStageMetrics(designWidth = 1440, designHeight = 905) {
   const [metrics, setMetrics] = useState({
     scale: 1,
@@ -16,11 +20,26 @@ export function useStageMetrics(designWidth = 1440, designHeight = 905) {
   });
 
   useEffect(() => {
+    let lockedMobileHeight = window.innerHeight;
+    let previousWidth = window.innerWidth;
+
     const updateMetrics = () => {
+      const nextWidth = window.innerWidth;
+      const nextHeight = window.innerHeight;
+      const shouldLockHeight = isMobileViewport();
+      const widthChanged = Math.abs(nextWidth - previousWidth) > 2;
+
+      if (!shouldLockHeight || widthChanged) {
+        lockedMobileHeight = nextHeight;
+      }
+
+      previousWidth = nextWidth;
+      const viewportHeight = shouldLockHeight ? lockedMobileHeight : nextHeight;
+
       setMetrics({
-        scale: Math.min(window.innerWidth / designWidth, window.innerHeight / designHeight),
-        viewportHeight: window.innerHeight,
-        viewportWidth: window.innerWidth,
+        scale: Math.min(nextWidth / designWidth, viewportHeight / designHeight),
+        viewportHeight,
+        viewportWidth: nextWidth,
       });
     };
 
@@ -32,7 +51,7 @@ export function useStageMetrics(designWidth = 1440, designHeight = 905) {
   return metrics;
 }
 
-export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12 } = {}) {
+export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, viewportHeight } = {}) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -45,7 +64,8 @@ export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12 } 
 
       if (section) {
         const rect = section.getBoundingClientRect();
-        const scrollable = Math.max(rect.height - window.innerHeight, 1);
+        const stableViewportHeight = viewportHeight ?? window.innerHeight;
+        const scrollable = Math.max(rect.height - stableViewportHeight, 1);
         targetProgress = clamp(-rect.top / scrollable, 0, 1);
       }
 
@@ -66,7 +86,7 @@ export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12 } 
     return () => {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
-  }, [easing, sectionRef, smooth]);
+  }, [easing, sectionRef, smooth, viewportHeight]);
 
   return progress;
 }

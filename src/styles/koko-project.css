@@ -112,10 +112,12 @@
 .koko-version-box {
   height: 38px;
   left: 195px;
+  max-width: 454px;
   overflow: hidden;
   position: fixed;
+  right: 430px;
   top: 25px;
-  width: 454px;
+  width: auto;
 }
 
 .koko-version-box span {
@@ -218,7 +220,7 @@
 .koko-project-intro {
   --koko-intro-width: 357px;
 
-  bottom: var(--koko-info-bottom);
+  bottom: calc(var(--koko-info-bottom) - 21px);
   color: #e6e6e6;
   filter: invert(1);
   font-family: "Noto Serif JP", Georgia, serif;
@@ -368,5 +370,11 @@
 
   .koko-image-page {
     width: min(100vw, calc(100svh * 2400 / 1695));
+  }
+}
+
+@media (max-width: 920px) {
+  .koko-version-box {
+    display: none;
   }
 }

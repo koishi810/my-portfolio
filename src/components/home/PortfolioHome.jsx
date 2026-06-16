@@ -46,14 +46,14 @@ const works = [
   },
 ];
 
-function useHomePhase(aboutRef, worksRef, contactRef) {
+function useHomePhase(aboutRef, worksRef, contactRef, viewportHeight) {
   const [phase, setPhase] = useState("hero");
 
   useEffect(() => {
     let frameId = null;
 
     const updatePhase = () => {
-      const threshold = window.innerHeight * 0.55;
+      const threshold = viewportHeight * 0.55;
       const contactTop = contactRef.current?.getBoundingClientRect().top ?? Infinity;
       const worksTop = worksRef.current?.getBoundingClientRect().top ?? Infinity;
       const aboutTop = aboutRef.current?.getBoundingClientRect().top ?? Infinity;
@@ -76,7 +76,7 @@ function useHomePhase(aboutRef, worksRef, contactRef) {
     return () => {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
-  }, [aboutRef, contactRef, worksRef]);
+  }, [aboutRef, contactRef, viewportHeight, worksRef]);
 
   return phase;
 }
@@ -325,7 +325,7 @@ function WorkItem({ itemRef, work, index }) {
   );
 }
 
-function WorksSection({ sectionRef }) {
+function WorksSection({ sectionRef, viewportHeight }) {
   const workItemRefs = useRef([]);
 
   useEffect(() => {
@@ -344,8 +344,8 @@ function WorksSection({ sectionRef }) {
           const imageBottom = image.offsetTop + image.offsetHeight;
           const bottomOffset = window.innerWidth <= 1180 ? 48 : 56;
           const minTop = window.innerWidth <= 1180 ? 120 : 260;
-          const maxTop = window.innerWidth <= 1180 ? window.innerHeight - 120 : 380;
-          const stickyTop = Math.min(Math.max(window.innerHeight - imageBottom - bottomOffset, minTop), maxTop);
+          const maxTop = window.innerWidth <= 1180 ? viewportHeight - 120 : 380;
+          const stickyTop = Math.min(Math.max(viewportHeight - imageBottom - bottomOffset, minTop), maxTop);
           item.style.setProperty("--work-sticky-top", `${stickyTop}px`);
         }
 
@@ -368,7 +368,7 @@ function WorksSection({ sectionRef }) {
         }
       });
     };
-  }, [sectionRef]);
+  }, [sectionRef, viewportHeight]);
 
   return (
     <section className="portfolio-works-section" id="works" ref={sectionRef}>
@@ -417,21 +417,21 @@ export default function PortfolioHome() {
   const worksRef = useRef(null);
   const contactRef = useRef(null);
   const { scale, viewportHeight } = useStageMetrics(DESIGN_WIDTH, DESIGN_HEIGHT);
-  const phase = useHomePhase(aboutRef, worksRef, contactRef);
-  const heroProgress = useScrollProgress(heroRef, { easing: 0.1, smooth: true });
-  const aboutProgress = useScrollProgress(aboutRef, { easing: 0.1, smooth: true });
+  const phase = useHomePhase(aboutRef, worksRef, contactRef, viewportHeight);
+  const heroProgress = useScrollProgress(heroRef, { easing: 0.1, smooth: true, viewportHeight });
+  const aboutProgress = useScrollProgress(aboutRef, { easing: 0.1, smooth: true, viewportHeight });
   const heroHeight = viewportHeight + (HERO_LENGTH - DESIGN_HEIGHT) * scale * HERO_SCROLL_MULTIPLIER;
   const aboutHeight =
     viewportHeight + DESIGN_HEIGHT * scale * 2 + (ABOUT_LENGTH - DESIGN_HEIGHT) * scale * ABOUT_SCROLL_MULTIPLIER;
 
   return (
-    <main className={`portfolio-home portfolio-phase-${phase}`}>
+    <main className={`portfolio-home portfolio-phase-${phase}`} style={{ "--stable-vh": `${viewportHeight}px` }}>
       <GlobalBackground />
       <GlobalMask phase={phase} />
       <GlobalChrome />
       <HeroSection height={`${heroHeight}px`} progress={heroProgress} sectionRef={heroRef} />
       <AboutSection height={`${aboutHeight}px`} progress={aboutProgress} sectionRef={aboutRef} />
-      <WorksSection sectionRef={worksRef} />
+      <WorksSection sectionRef={worksRef} viewportHeight={viewportHeight} />
       <ContactSection sectionRef={contactRef} />
     </main>
   );

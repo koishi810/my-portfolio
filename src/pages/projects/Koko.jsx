@@ -145,8 +145,8 @@ function KokoImageReadingSection() {
 export default function Koko() {
   const sectionRef = useRef(null);
   const backgroundRef = useRef(null);
-  const progress = useScrollProgress(sectionRef, { easing: 0.09, smooth: true });
   const { scale, viewportHeight, viewportWidth } = useStageMetrics(DESIGN_WIDTH, DESIGN_HEIGHT);
+  const progress = useScrollProgress(sectionRef, { easing: 0.09, smooth: true, viewportHeight });
 
   usePointerParallax(backgroundRef);
 

@@ -51,6 +51,22 @@ export function useStageMetrics(designWidth = 1440, designHeight = 905) {
   return metrics;
 }
 
+export function useWidthScale(designWidth = 1440, maxScale = 1) {
+  const [scale, setScale] = useState(maxScale);
+
+  useEffect(() => {
+    const updateScale = () => {
+      setScale(Math.min(window.innerWidth / designWidth, maxScale));
+    };
+
+    updateScale();
+    window.addEventListener("resize", updateScale);
+    return () => window.removeEventListener("resize", updateScale);
+  }, [designWidth, maxScale]);
+
+  return scale;
+}
+
 export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, viewportHeight } = {}) {
   const [progress, setProgress] = useState(0);
 

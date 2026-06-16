@@ -32,6 +32,7 @@ const works = [
     type: "Interactive Installation / Visual System",
     description:
       "カメラで取得した表情の変化をもとに、花のかたちや天気の状態を生成するインタラクティブ作品です。\n\n笑顔、驚き、怒り、悲しみなどの感情を読み取り、その状態に応じて花びらの種類、数、開き方、動きが変化します。",
+    href: "/works/flower-machine",
     image: "/assets/home/flower-machine.png",
     imageLabel: "きもち de フラワーマシン",
   },
@@ -341,12 +342,21 @@ function WorksSection({ sectionRef, viewportHeight }) {
 
         const image = item.querySelector(".portfolio-work-image");
         if (image) {
+          const isStackedLayout = window.innerWidth <= 1180;
           const imageBottom = image.offsetTop + image.offsetHeight;
-          const bottomOffset = window.innerWidth <= 1180 ? 48 : 56;
-          const minTop = window.innerWidth <= 1180 ? 120 : 260;
-          const maxTop = window.innerWidth <= 1180 ? viewportHeight - 120 : 380;
+          const bottomOffset = isStackedLayout ? 48 : 56;
+          const minTop = isStackedLayout ? 120 : 260;
+          const maxTop = isStackedLayout ? viewportHeight - 120 : 380;
           const stickyTop = Math.min(Math.max(viewportHeight - imageBottom - bottomOffset, minTop), maxTop);
           item.style.setProperty("--work-sticky-top", `${stickyTop}px`);
+
+          const step = item.closest(".portfolio-work-step");
+          if (step && isStackedLayout) {
+            const pauseDistance = Math.max(viewportHeight * 0.82, 620);
+            step.style.setProperty("--work-step-min-height", `${imageBottom + pauseDistance}px`);
+          } else if (step) {
+            step.style.removeProperty("--work-step-min-height");
+          }
         }
 
         const rect = item.getBoundingClientRect();
@@ -365,6 +375,7 @@ function WorksSection({ sectionRef, viewportHeight }) {
         if (item) {
           item.style.clipPath = "";
           item.style.removeProperty("--work-sticky-top");
+          item.closest(".portfolio-work-step")?.style.removeProperty("--work-step-min-height");
         }
       });
     };

@@ -8,7 +8,7 @@ const PROJECT_INTRO_LEFT = 2339.66;
 const PROJECT_INTRO_WIDTH = 357;
 const CONTENT_GAP = 107;
 const HORIZONTAL_IMAGE_LEFT = PROJECT_INTRO_LEFT + PROJECT_INTRO_WIDTH + CONTENT_GAP;
-const HORIZONTAL_MOVE_END = 0.78;
+const HORIZONTAL_MOVE_END = 0.82;
 const KOKO_IMAGE = "/assets/home/koko-background.png";
 const IMAGE_START_PAGE = 2;
 const IMAGE_END_PAGE = 14;
@@ -96,6 +96,7 @@ function KokoChrome() {
         <a href="/#top">TOP</a>
         <a href="/#works">WORKS</a>
         <a href="/#about">ABOUT ME</a>
+        <a href="/#contact">CONTACT</a>
       </nav>
     </header>
   );
@@ -166,7 +167,7 @@ export default function Koko() {
   const moveProgress = Math.min(progress / HORIZONTAL_MOVE_END, 1);
   const translateX = -maxTranslate * moveProgress;
   const scrollDistance = maxTranslate + TEXT_GROUP_WIDTH_FOR_SCROLL * scale;
-  const scrollHeight = viewportHeight + scrollDistance * 1.08 + viewportHeight * 0.65;
+  const scrollHeight = viewportHeight + scrollDistance * 1.34 + viewportHeight * 0.45;
 
   return (
     <main className="koko-project-page">

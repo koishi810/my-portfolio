@@ -4,12 +4,14 @@
   background: #050505;
   color: #d9d9d9;
   min-height: var(--stable-vh, 100svh);
+  min-height: max(var(--stable-vh, 100svh), 100dvh);
   overflow-x: clip;
   position: relative;
 }
 
 .portfolio-global-background {
   height: var(--stable-vh, 100svh);
+  height: max(var(--stable-vh, 100svh), 100dvh);
   inset: 0;
   pointer-events: none;
   position: fixed;
@@ -647,7 +649,9 @@
   align-items: center;
   display: flex;
   min-height: var(--stable-vh, 100svh);
+  min-height: max(var(--stable-vh, 100svh), 100dvh);
   justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 0);
   position: relative;
   z-index: 6;
 }
@@ -727,7 +731,7 @@
   .portfolio-work-step {
     height: auto;
     margin-bottom: 56px;
-    min-height: calc(var(--stable-vh, 100svh) + 300px);
+    min-height: var(--work-step-min-height, calc(var(--stable-vh, 100svh) + 300px));
   }
 
   .portfolio-work-step + .portfolio-work-step {

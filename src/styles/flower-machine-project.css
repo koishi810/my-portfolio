@@ -1,0 +1,695 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@400;700&display=swap");
+
+.flower-project-page {
+  background: #050505;
+  color: #e6e6e6;
+  font-family: "Noto Serif JP", Georgia, serif;
+  min-height: 100svh;
+  overflow-x: clip;
+  position: relative;
+}
+
+.flower-fixed-background {
+  --flower-bg-x: 0px;
+  --flower-bg-y: 0px;
+
+  height: 114vh;
+  isolation: isolate;
+  left: -4vw;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: -7vh;
+  transform: translate3d(var(--flower-bg-x), var(--flower-bg-y), 0) scale(1.04);
+  transform-origin: center;
+  width: 108vw;
+  will-change: transform;
+  z-index: 0;
+}
+
+.flower-blue-background {
+  background: #01a0e3;
+  inset: 0;
+  position: absolute;
+}
+
+.flower-fixed-background .flower-mask {
+  display: none;
+}
+
+.flower-mask {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.flower-mask-exclusion {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.7);
+  mix-blend-mode: exclusion;
+}
+
+.flower-mask-light {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background: rgba(202, 202, 202, 0.7);
+  opacity: 0.65;
+}
+
+.flower-chrome {
+  color: #ffffff;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: normal;
+  position: fixed;
+  z-index: 30;
+}
+
+.flower-version {
+  color: inherit;
+  left: 50.752px;
+  mix-blend-mode: normal;
+  position: fixed;
+  text-decoration: none;
+  top: 35.522px;
+  white-space: nowrap;
+}
+
+.flower-version-box {
+  height: 38px;
+  left: 195px;
+  max-width: 454px;
+  overflow: hidden;
+  position: fixed;
+  right: 430px;
+  top: 25px;
+  width: auto;
+}
+
+.flower-version-box span {
+  animation: flower-version-scroll 14s linear infinite;
+  display: inline-block;
+  mix-blend-mode: normal;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+
+.flower-nav {
+  display: flex;
+  gap: 38px;
+  position: fixed;
+  right: 57px;
+  top: 35.522px;
+}
+
+.flower-nav a {
+  color: inherit;
+  mix-blend-mode: normal;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.flower-horizontal-section {
+  position: relative;
+  z-index: 5;
+}
+
+.flower-sticky-stage {
+  align-items: center;
+  display: flex;
+  height: 100svh;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+}
+
+.flower-design-shell {
+  flex: 0 0 auto;
+  height: 100%;
+  position: relative;
+  transform-origin: top left;
+  will-change: transform;
+  z-index: 5;
+}
+
+.flower-design-stage {
+  height: 905px;
+  left: 0;
+  overflow: visible;
+  position: absolute;
+  top: 0;
+  transform-origin: top left;
+}
+
+.flower-detail-frame,
+.flower-horizontal-exhibition-frame,
+.flower-reading-frame {
+  overflow: hidden;
+  position: absolute;
+}
+
+.flower-detail-frame {
+  display: none;
+  height: 905px;
+  left: 0;
+  top: 0;
+  width: 2785px;
+  z-index: 0;
+}
+
+.flower-frame-backdrop {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.flower-frame-blue {
+  background: #01a0e3;
+  height: 1139.853px;
+  left: -23.741px;
+  position: absolute;
+  top: -94.38px;
+  width: 1345.482px;
+}
+
+.flower-horizontal-exhibition-frame .flower-frame-mask {
+  display: none;
+}
+
+.flower-frame-mask {
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  height: 1017px;
+  pointer-events: none;
+  position: absolute;
+  top: -58.5px;
+  width: 1474.773px;
+}
+
+.flower-frame-mask-exclusion {
+  background: rgba(255, 255, 255, 0.7);
+  left: -14.499px;
+  mix-blend-mode: exclusion;
+}
+
+.flower-frame-mask-light {
+  background: rgba(202, 202, 202, 0.7);
+  left: -17.387px;
+  opacity: 0.65;
+}
+
+.flower-hero-blue-panel {
+  background: #01a0e3;
+  height: 970px;
+  left: 644.42px;
+  position: absolute;
+  top: -9.45px;
+  width: 1145px;
+  z-index: 1;
+}
+
+.flower-logo-visual {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.flower-logo-visual img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.flower-hero-logo {
+  height: 970px;
+  left: 644.42px;
+  position: absolute;
+  top: -9.45px;
+  width: 1145px;
+  z-index: 2;
+}
+
+.flower-difference {
+  color: #ffffff;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+.flower-main-copy {
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Serif JP", Georgia, serif;
+  gap: 30px;
+  left: 109.92px;
+  position: absolute;
+  top: 692px;
+  white-space: nowrap;
+  width: 428px;
+  z-index: 6;
+}
+
+.flower-main-copy p,
+.flower-main-copy h1 {
+  color: #ffffff;
+  filter: none;
+  margin: 0;
+  mix-blend-mode: normal;
+}
+
+.flower-date {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.flower-main-copy h1 {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.flower-type {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.flower-metadata {
+  color: #ffffff;
+  display: grid;
+  font-family: "Noto Serif JP", Georgia, serif;
+  gap: 40px 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  height: 384px;
+  left: 1896px;
+  margin: 0;
+  position: absolute;
+  top: 465.34px;
+  width: 342px;
+  z-index: 6;
+}
+
+.flower-metadata-row {
+  display: contents;
+}
+
+.flower-metadata dt,
+.flower-metadata dd {
+  color: #ffffff;
+  filter: none;
+  line-height: 1.6;
+  margin: 0;
+  mix-blend-mode: normal;
+}
+
+.flower-metadata dt {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.flower-metadata dd {
+  font-size: 15px;
+  font-weight: 400;
+  text-align: right;
+  white-space: pre-line;
+}
+
+.flower-metadata-row:nth-child(4) dd,
+.flower-metadata-row:nth-child(6) dd {
+  justify-self: end;
+  width: 414.36px;
+}
+
+.flower-project-intro {
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 15px;
+  font-weight: 400;
+  left: 2344.59px;
+  line-height: 1.6;
+  position: absolute;
+  top: 585.34px;
+  white-space: pre-wrap;
+  width: 357px;
+  z-index: 6;
+}
+
+.flower-project-intro p {
+  color: #ffffff;
+  filter: none;
+  margin: 0 0 24px;
+  mix-blend-mode: normal;
+}
+
+.flower-horizontal-exhibition-frame {
+  background: #01a0e3;
+  font-family: "Noto Serif JP", Georgia, serif;
+  height: 905px;
+  left: 2785px;
+  text-align: left;
+  top: 0;
+  width: 1322px;
+  z-index: 6;
+}
+
+.flower-horizontal-exhibition-frame .flower-frame-backdrop {
+  display: none;
+}
+
+.flower-horizontal-exhibition-copy {
+  height: 173.926px;
+  left: 447px;
+  position: absolute;
+  top: 388.583px;
+  width: 428px;
+  z-index: 4;
+}
+
+.flower-horizontal-exhibition-copy h2 {
+  color: #ffffff;
+  filter: none;
+  left: 150px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  position: absolute;
+  top: 54px;
+  width: 128px;
+  mix-blend-mode: normal;
+}
+
+.flower-horizontal-exhibition-copy p {
+  color: #ffffff;
+  filter: none;
+  font-size: 15px;
+  left: 19.5px;
+  line-height: 1.6;
+  margin: 0;
+  position: absolute;
+  top: 100.783px;
+  width: 389px;
+  mix-blend-mode: normal;
+}
+
+.flower-reading-section {
+  background: transparent;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  min-height: auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.flower-reading-frame-shell {
+  height: 2691px;
+  position: relative;
+  width: 1322px;
+}
+
+.flower-reading-frame {
+  background: transparent;
+  height: 2691px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  transform-origin: top left;
+  width: 1322px;
+}
+
+.flower-reading-frame > .flower-frame-backdrop {
+  display: none;
+}
+
+.flower-reading-logo-band {
+  align-items: center;
+  background: #01a0e3;
+  display: flex;
+  height: 744.585px;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 109.688px;
+  width: 1323.708px;
+  z-index: 2;
+}
+
+.flower-reading-logo-band .flower-logo-visual {
+  height: 420px;
+  width: 830px;
+}
+
+.flower-video {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.flower-reading-black-panel {
+  display: none;
+}
+
+.flower-reading-copy {
+  font-family: "Noto Serif JP", Georgia, serif;
+  pointer-events: none;
+  position: absolute;
+  width: 620px;
+  z-index: 4;
+}
+
+.flower-reading-copy-rules {
+  left: 50.752px;
+  top: 1102.639px;
+}
+
+.flower-reading-copy-weather {
+  left: 50.752px;
+  top: 1994.348px;
+}
+
+.flower-reading-copy h2 {
+  color: #ffffff;
+  filter: none;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0 0 39px;
+  mix-blend-mode: normal;
+  opacity: 0.7;
+}
+
+.flower-reading-copy p {
+  color: #ffffff;
+  filter: none;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin: 0 0 1.6em;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+/*
+ * Legacy layout classes are intentionally neutralized here. The detail page now
+ * follows the Figma frame coordinates directly instead of the temporary grid.
+ */
+.flower-reading-block {
+  display: contents;
+}
+
+/*
+ * The generated examples sit in the black reading frame at the coordinates
+ * from Figma node 328:417.
+ */
+.flower-feeling-cluster {
+  height: 2691px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 1322px;
+  z-index: 4;
+}
+
+.flower-feeling-group {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  position: absolute;
+}
+
+.flower-feeling-images {
+  align-items: flex-end;
+  display: flex;
+  justify-content: center;
+  min-height: 92px;
+}
+
+.flower-feeling-images img {
+  height: 87px;
+  margin-left: -22px;
+  object-fit: contain;
+  transform: rotate(var(--flower-rotate));
+  width: 87px;
+}
+
+.flower-feeling-images img:first-child {
+  margin-left: 0;
+}
+
+.flower-feeling-group figcaption {
+  color: #ffffff;
+  filter: none;
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 20px;
+  line-height: 1.6;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}
+
+.flower-feeling-joy {
+  left: 751.87px;
+  top: 1186.64px;
+  width: 260px;
+}
+
+.flower-feeling-high {
+  left: 748px;
+  top: 1362px;
+  width: 150px;
+}
+
+.flower-feeling-sad {
+  left: 958px;
+  top: 1362px;
+  width: 150px;
+}
+
+.flower-feeling-surprise {
+  left: 748px;
+  top: 1538px;
+  width: 150px;
+}
+
+.flower-feeling-angry {
+  left: 958px;
+  top: 1538px;
+  width: 150px;
+}
+
+.flower-feeling-disgust {
+  left: 748px;
+  top: 1714px;
+  width: 150px;
+}
+
+.flower-feeling-fear {
+  left: 958px;
+  top: 1714px;
+  width: 150px;
+}
+
+.flower-feeling-neutral {
+  left: 1150px;
+  top: 1420px;
+  width: 150px;
+}
+
+.flower-weather-cluster {
+  height: 2691px;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 1322px;
+  z-index: 4;
+}
+
+.flower-weather-cluster img {
+  display: block;
+  object-fit: contain;
+  position: absolute;
+}
+
+.flower-weather-sun {
+  left: 629.518px;
+  top: 1987.3px;
+  width: 361.766px;
+}
+
+.flower-weather-rain {
+  left: 994.486px;
+  top: 2022.914px;
+  width: 259.266px;
+}
+
+.flower-weather-cloud {
+  left: 706.073px;
+  top: 2203.082px;
+  width: 351.657px;
+}
+
+.flower-weather-thunder {
+  left: 778.797px;
+  top: 2222.681px;
+  width: 761.969px;
+}
+
+@keyframes flower-version-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 920px) {
+  .flower-version-box {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .flower-chrome {
+    font-size: 12px;
+  }
+
+  .flower-version {
+    left: 16px;
+    top: 18px;
+  }
+
+  .flower-nav {
+    gap: 16px;
+    left: 16px;
+    right: auto;
+    top: 46px;
+  }
+
+  .flower-nav a {
+    font-size: 12px;
+  }
+
+  .flower-fixed-background {
+    left: -8vw;
+    width: 116vw;
+  }
+}

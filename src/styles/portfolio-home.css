@@ -804,7 +804,7 @@
   }
 
   .portfolio-about-section .portfolio-design-shell {
-    transform: scale(3.04);
+    transform: scale(2.128);
     transform-origin: center center;
   }
 
@@ -824,18 +824,18 @@
   }
 
   .portfolio-work-text h3 {
-    font-size: 28px;
+    font-size: 22.4px;
   }
 
   .portfolio-work-date,
   .portfolio-work-description {
-    font-size: 18px;
-    line-height: 1.7;
+    font-size: 10.5px;
+    line-height: 1.6;
   }
 
   .portfolio-work-type {
-    font-size: 22px;
-    line-height: 1.55;
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 

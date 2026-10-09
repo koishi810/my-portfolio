@@ -1,7 +1,5 @@
 import ProjectDetailTemplate from "../../templates/ProjectDetailTemplate.jsx";
-import { worldSkinContent } from "../../data/projects/worldSkinContent.js";
-import "../../styles/project.css";
-
+import { placeholderProjects } from "../../data/projects.js";
 export default function WorldSkin() {
-  return <ProjectDetailTemplate project={worldSkinContent} />;
+  return <ProjectDetailTemplate project={placeholderProjects["world-skin"]} />;
 }

@@ -1,4 +1,4 @@
-import ScrollImageSequence from "./ScrollImageSequence.jsx";
+import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 
 const yeziSequence = {
   basePath: "/assets/sequences/yezi",

@@ -1,5 +1,3 @@
-import "../styles/works.css";
-
 export default function Works() {
   return (
     <main className="page works-page">

@@ -1,7 +1,5 @@
 import ProjectDetailTemplate from "../../templates/ProjectDetailTemplate.jsx";
-import { emotionBloomContent } from "../../data/projects/emotionBloomContent.js";
-import "../../styles/project.css";
-
+import { placeholderProjects } from "../../data/projects.js";
 export default function EmotionBloom() {
-  return <ProjectDetailTemplate project={emotionBloomContent} />;
+  return <ProjectDetailTemplate project={placeholderProjects["emotion-bloom"]} />;
 }

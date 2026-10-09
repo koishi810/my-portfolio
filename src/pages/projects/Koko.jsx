@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import { mix, useScrollProgress, useStageMetrics } from "../../hooks/useScrollProgress.js";
 import "../../styles/koko-project.css";
 
@@ -85,20 +86,15 @@ function usePointerParallax(ref) {
 
 function KokoChrome() {
   return (
-    <header className="koko-chrome">
-      <a className="koko-version" href="/#top">
-        Portfolio ver0.1
-      </a>
-      <div className="koko-version-box" aria-hidden="true">
-        <span>2026.06.09 更新しました</span>
-      </div>
-      <nav className="koko-nav" aria-label="KOKO page navigation">
-        <a href="/#top">TOP</a>
-        <a href="/#works">WORKS</a>
-        <a href="/#about">ABOUT ME</a>
-        <a href="/#contact">CONTACT</a>
-      </nav>
-    </header>
+    <PortfolioChrome
+      ariaLabel="KOKO page navigation"
+      classNames={{
+        header: "koko-chrome",
+        navigation: "koko-nav",
+        version: "koko-version",
+        versionBox: "koko-version-box",
+      }}
+    />
   );
 }
 

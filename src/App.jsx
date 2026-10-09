@@ -1,5 +1,4 @@
-import { Route, Routes } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
@@ -14,29 +13,34 @@ import YeziScrollTest from "./pages/tests/YeziScrollTest.jsx";
 import AboutScrollTest from "./pages/tests/AboutScrollTest.jsx";
 import HomeFlowTest from "./pages/tests/HomeFlowTest.jsx";
 
+const routes = [
+  { path: "/", element: <Home />, layout: "immersive" },
+  { path: "/works", element: <Works />, layout: "default" },
+  { path: "/about", element: <About />, layout: "default" },
+  { path: "/works/koko", element: <Koko />, layout: "immersive" },
+  { path: "/works/flower-machine", element: <FlowerMachine />, layout: "immersive" },
+  { path: "/works/world-skin", element: <WorldSkin />, layout: "default" },
+  { path: "/works/sn", element: <Sn />, layout: "default" },
+  { path: "/works/emotion-bloom", element: <EmotionBloom />, layout: "default" },
+  { path: "/test/yezi-scroll", element: <YeziScrollTest />, layout: "prototype" },
+  { path: "/test/about-scroll", element: <AboutScrollTest />, layout: "prototype" },
+  { path: "/test/home-flow", element: <HomeFlowTest />, layout: "prototype" },
+];
+
 export default function App() {
   const location = useLocation();
-  const isTestRoute = location.pathname.startsWith("/test/");
-  const isFullBleedHome = location.pathname === "/";
-  const isImmersiveProject = location.pathname === "/works/koko" || location.pathname === "/works/flower-machine";
+  const activeRoute = routes.find((route) => route.path === location.pathname);
+  const showDefaultLayout = !activeRoute || activeRoute.layout === "default";
 
   return (
     <div className="app-shell">
-      {isTestRoute || isFullBleedHome || isImmersiveProject ? null : <Header />}
+      {showDefaultLayout ? <Header /> : null}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/works" element={<Works />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/works/koko" element={<Koko />} />
-        <Route path="/works/flower-machine" element={<FlowerMachine />} />
-        <Route path="/works/world-skin" element={<WorldSkin />} />
-        <Route path="/works/sn" element={<Sn />} />
-        <Route path="/works/emotion-bloom" element={<EmotionBloom />} />
-        <Route path="/test/yezi-scroll" element={<YeziScrollTest />} />
-        <Route path="/test/about-scroll" element={<AboutScrollTest />} />
-        <Route path="/test/home-flow" element={<HomeFlowTest />} />
+        {routes.map((route) => (
+          <Route element={route.element} key={route.path} path={route.path} />
+        ))}
       </Routes>
-      {isTestRoute || isFullBleedHome || isImmersiveProject ? null : <Footer />}
+      {showDefaultLayout ? <Footer /> : null}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import { mix, useScrollProgress, useStageMetrics, useWidthScale } from "../../hooks/useScrollProgress.js";
 import "../../styles/flower-machine-project.css";
 
@@ -82,20 +83,15 @@ function usePointerParallax(ref) {
 
 function FlowerChrome() {
   return (
-    <header className="flower-chrome">
-      <a className="flower-version" href="/#top">
-        Portfolio ver0.1
-      </a>
-      <div className="flower-version-box" aria-hidden="true">
-        <span>2026.06.09 更新しました</span>
-      </div>
-      <nav className="flower-nav" aria-label="Flower Machine page navigation">
-        <a href="/#top">TOP</a>
-        <a href="/#works">WORKS</a>
-        <a href="/#about">ABOUT ME</a>
-        <a href="/#contact">CONTACT</a>
-      </nav>
-    </header>
+    <PortfolioChrome
+      ariaLabel="Flower Machine page navigation"
+      classNames={{
+        header: "flower-chrome",
+        navigation: "flower-nav",
+        version: "flower-version",
+        versionBox: "flower-version-box",
+      }}
+    />
   );
 }
 

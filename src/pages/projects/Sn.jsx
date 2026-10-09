@@ -1,7 +1,5 @@
 import ProjectDetailTemplate from "../../templates/ProjectDetailTemplate.jsx";
-import { snContent } from "../../data/projects/snContent.js";
-import "../../styles/project.css";
-
+import { placeholderProjects } from "../../data/projects.js";
 export default function Sn() {
-  return <ProjectDetailTemplate project={snContent} />;
+  return <ProjectDetailTemplate project={placeholderProjects.sn} />;
 }

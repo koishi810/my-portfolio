@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import ScrollImageSequence from "./ScrollImageSequence.jsx";
+import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 
 const DESIGN_WIDTH = 1440;
 const DESIGN_HEIGHT = 905;

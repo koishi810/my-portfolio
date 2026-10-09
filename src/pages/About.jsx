@@ -1,5 +1,3 @@
-import "../styles/about.css";
-
 export default function About() {
   return (
     <main className="page about-page">

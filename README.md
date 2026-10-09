@@ -121,13 +121,16 @@ About section 滚动测试页。
 
 用于验证 Hero section 和 About section 之间的连续滚动切换，以及多个 section 共用同一套背景、遮罩和顶栏的实现方式。
 
-## 主要文件
+## 代码结构
 
-- `src/components/home/PortfolioHome.jsx`
-- `src/styles/portfolio-home.css`
-- `src/components/tests/ScrollImageSequence.jsx`
-- `src/hooks/useScrollProgress.js`
-- `src/App.jsx`
+- `src/App.jsx`：集中定义路由和页面布局类型。
+- `src/components/home/`：首页容器及 Hero / About / Works / Contact 分区。
+- `src/components/motion/`：已经进入正式页面的通用动态组件。
+- `src/components/tests/`：保留用于验证交互的原型组件。
+- `src/components/PortfolioChrome.jsx`：首页和沉浸式作品页共享的顶栏结构。
+- `src/data/projects.js`：首页作品卡片和预留作品的统一数据入口。
+- `src/hooks/useScrollProgress.js`：共享滚动进度与视口计算。
+- `src/styles/`：全局样式、正式页面样式和原型页面样式。
 
 ## 资源
 

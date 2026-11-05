@@ -171,3 +171,13 @@ About section 滚动测试页。
 - 六张照片保留4000px长边与原始方向，不裁切；已小于约1MB的4张不重复压缩，另2张使用优化渐进JPEG。
 - 图片延迟加载，预留原始宽高比；图组在手机上转为单列。
 - 原始20MB以上照片不放入网站，Mac原图不修改。
+
+## GitHub Pages
+
+Public portfolio: https://koishi810.github.io/my-portfolio/
+
+Pushing `main` builds and deploys through `.github/workflows/pages.yml`.
+For the Pages build use `PORTFOLIO_BASE=/my-portfolio/ npm run build`.
+Normal `npm run build` retains root hosting. Native links use `SiteAnchor`,
+image data is rebased during the Pages build, and known routes receive an
+`index.html` so direct visits and refreshes work without server rewrites.

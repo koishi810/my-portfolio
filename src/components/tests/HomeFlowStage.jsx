@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 import { portfolioUpdateNotice, portfolioVersionLabel } from "../../data/siteMeta.js";
 import { useEffect, useRef, useState } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
@@ -286,7 +287,7 @@ function AboutScene({ aboutProgress }) {
           revealProgress={textProgress}
           startIndex={rightColumn.length}
         />
-        <a
+        <SiteAnchor
           className="home-flow-more-button"
           href="/about"
           style={{
@@ -296,7 +297,7 @@ function AboutScene({ aboutProgress }) {
           }}
         >
           MORE
-        </a>
+        </SiteAnchor>
       </div>
     </div>
   );

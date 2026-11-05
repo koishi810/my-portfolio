@@ -1,3 +1,4 @@
+import SiteAnchor from "../components/SiteAnchor.jsx";
 import useWorksScroll from "../hooks/useWorksScroll.js";
 import DirectoryLayout from "../components/directory/DirectoryLayout.jsx";
 import DirectoryProject from "../components/directory/DirectoryProject.jsx";
@@ -15,9 +16,9 @@ export default function Works() {
         <h1 className="directory-title" id="works-title">Works</h1>
         <nav className="directory-category-index" aria-label="Work categories">
           {workCategories.map((category) => (
-            <a href={`#category-${category.id}`} key={category.id}>
+            <SiteAnchor href={`#category-${category.id}`} key={category.id}>
               <span>{category.number}</span><span>{category.label}</span>
-            </a>
+            </SiteAnchor>
           ))}
         </nav>
       </section>

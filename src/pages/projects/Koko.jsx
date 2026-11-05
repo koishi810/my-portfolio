@@ -1,3 +1,4 @@
+import SiteAnchor from "../../components/SiteAnchor.jsx";
 import { useEffect, useRef } from "react";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
@@ -301,7 +302,7 @@ export default function Koko() {
       </section>
       <KokoImageReadingSection />
       <footer className="koko-footer">
-        <a className="koko-back-link" href="/works#category-ui-ux">ALL WORKS ↗</a>
+        <SiteAnchor className="koko-back-link" href="/works#category-ui-ux">ALL WORKS ↗</SiteAnchor>
       </footer>
     </main>
   );

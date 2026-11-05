@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 import { portfolioUpdateNotice, portfolioVersionLabel } from "../../data/siteMeta.js";
 import { useEffect, useRef, useState } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
@@ -173,7 +174,7 @@ function InteractionLayer({ progress }) {
   const moreProgress = progressBetween(progress, 0.75, 0.9);
 
   return (
-    <a
+    <SiteAnchor
       className="about-test-more-button"
       href="/about"
       style={{
@@ -183,7 +184,7 @@ function InteractionLayer({ progress }) {
       }}
     >
       <span>MORE</span>
-    </a>
+    </SiteAnchor>
   );
 }
 

@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 import { useLayoutEffect, useRef } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 import { mix, progressBetween } from "../../hooks/useScrollProgress.js";
@@ -87,7 +88,7 @@ export default function AboutSection({ sectionRef, progress, height }) {
               revealProgress={textProgress}
               startIndex={aboutRightColumn.length}
             />
-            <a
+            <SiteAnchor
               className="portfolio-more-button portfolio-about-more"
               href="/about"
               ref={moreRef}
@@ -102,7 +103,7 @@ export default function AboutSection({ sectionRef, progress, height }) {
               }}
             >
               MORE
-            </a>
+            </SiteAnchor>
           </div>
         </DesignStage>
       </div>

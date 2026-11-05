@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 import { useEffect, useRef } from "react";
 import { featuredProjects } from "../../data/projects.js";
 
@@ -13,9 +14,9 @@ function WorkItem({ itemRef, work, index }) {
         <p className="portfolio-work-type">{work.type}</p>
         <p className="portfolio-work-description">{work.description}</p>
       </div>
-      <a className="portfolio-work-image" href={work.href} aria-label={`${work.title} project`}>
+      <SiteAnchor className="portfolio-work-image" href={work.href} aria-label={`${work.title} project`}>
         <img alt={work.imageLabel} src={work.image} />
-      </a>
+      </SiteAnchor>
     </article>
   );
 }
@@ -115,9 +116,9 @@ export default function WorksSection({ sectionRef, viewportHeight }) {
         </div>
         <div className="portfolio-all-works">
           <h2>ALL WORKS</h2>
-          <a className="portfolio-more-button" href="/works">
+          <SiteAnchor className="portfolio-more-button" href="/works">
             MORE
-          </a>
+          </SiteAnchor>
         </div>
       </div>
     </section>

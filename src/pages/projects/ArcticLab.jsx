@@ -1,3 +1,4 @@
+import SiteAnchor from "../../components/SiteAnchor.jsx";
 import { useRef } from "react";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
@@ -214,7 +215,7 @@ export default function ArcticLab() {
             {arcticLabMaterials.photographs.map((item) => <ArcticImage item={item} key={item.id} />)}
           </div>
         </div>
-        <a className="arctic-back-link" href="/works">ALL WORKS ↗</a>
+        <SiteAnchor className="arctic-back-link" href="/works">ALL WORKS ↗</SiteAnchor>
       </section>
     </main>
   );

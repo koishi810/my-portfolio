@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 import CachedWorksBackground from "./CachedWorksBackground.jsx";
 import PortfolioChrome from "../PortfolioChrome.jsx";
 import useDirectoryFade from "../../hooks/useDirectoryFade.js";
@@ -43,8 +44,8 @@ export default function DirectoryLayout({ children, variant, title }) {
       {children}
       <footer className="directory-contact" id="directory-contact">
         <h2>Contact</h2>
-        <a href="mailto:koishi810@gmail.com">koishi810@gmail.com</a>
-        <a className="directory-return" href="/#top">TOP ↑</a>
+        <SiteAnchor href="mailto:koishi810@gmail.com">koishi810@gmail.com</SiteAnchor>
+        <SiteAnchor className="directory-return" href="/#top">TOP ↑</SiteAnchor>
         <small>© 2026 LUYUFAN</small>
       </footer>
     </main>

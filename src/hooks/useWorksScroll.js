@@ -106,7 +106,7 @@ export default function useWorksScroll() {
       if (!link || !results.contains(link) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
       if (link.hasAttribute('download') || (link.target && link.target.toLowerCase() !== '_self')) return;
       const url = new URL(link.href, window.location.href);
-      if (url.origin !== window.location.origin || !url.pathname.startsWith('/works/')) return;
+      if (url.origin !== window.location.origin || !url.pathname.startsWith(`${import.meta.env.BASE_URL}works/`)) return;
       sourceLink = link;
       departure = { link, width: window.innerWidth, height: window.innerHeight };
     };

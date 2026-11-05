@@ -1,3 +1,4 @@
+import SiteAnchor from "../../components/SiteAnchor.jsx";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
 import SugarEntrance from "../../components/projects/SugarEntrance.jsx";
@@ -51,7 +52,7 @@ export default function Sn() {
       <section className="sugar-gallery-section" aria-labelledby="sugar-logo-title">
         <h2 className="sugar-section-title" id="sugar-logo-title">Logo</h2>
         <p className="sugar-note">この可変ロゴはWebサイトとパッケージで使用し、パッケージごとに異なる図案を展開することを計画しています。</p>
-        <p className="sugar-note"><a href="https://koishi810.github.io/sugarn-logo/logo_frame_variants/center_square/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>可変ロゴのサイトを見る ↗</a></p>
+        <p className="sugar-note"><SiteAnchor href="https://koishi810.github.io/sugarn-logo/logo_frame_variants/center_square/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit" }}>可変ロゴのサイトを見る ↗</SiteAnchor></p>
         <SugarImage item={sugarImages.find(item => item.sourcePage === 3)} />
         <div className="sugar-logo-grid">{["01", "02", "03"].map(index => <SugarLogoClip index={index} key={index} onKeyboardReveal={revealKeyboardPage} />)}</div>
       </section>
@@ -77,6 +78,6 @@ export default function Sn() {
         </div>
       </section>
     </div>
-    <a className="sugar-back-link" href="/works#category-graphic">ALL WORKS ↗</a>
+    <SiteAnchor className="sugar-back-link" href="/works#category-graphic">ALL WORKS ↗</SiteAnchor>
   </main>;
 }

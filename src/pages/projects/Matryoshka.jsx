@@ -1,3 +1,4 @@
+import SiteAnchor from "../../components/SiteAnchor.jsx";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
 import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
 import useMatryoshkaNavigationFade from "../../hooks/useMatryoshkaNavigationFade.js";
@@ -88,7 +89,7 @@ export default function Matryoshka() {
           </div>
         ))}
       </section>
-      <a className="matryoshka-back-link" href="/works#category-other">ALL WORKS ↗</a>
+      <SiteAnchor className="matryoshka-back-link" href="/works#category-other">ALL WORKS ↗</SiteAnchor>
     </main>
   );
 }

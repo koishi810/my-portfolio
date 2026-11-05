@@ -1,3 +1,4 @@
+import SiteAnchor from "../SiteAnchor.jsx";
 export default function DirectoryProject({ project }) {
   const clearPointerFocus = (event) => {
     event.currentTarget.removeAttribute("data-pointer-focus");
@@ -23,7 +24,7 @@ export default function DirectoryProject({ project }) {
         <p className="directory-project-description">{project.description}</p>
       </div>
       {project.detailHref ? (
-        <a
+        <SiteAnchor
           className="directory-project-image"
           href={project.detailHref}
           aria-label={`${project.title} project`}
@@ -38,7 +39,7 @@ export default function DirectoryProject({ project }) {
           onBlur={clearPointerFocus}
         >
           {image}
-        </a>
+        </SiteAnchor>
       ) : (
         <figure className="directory-project-image">{image}</figure>
       )}

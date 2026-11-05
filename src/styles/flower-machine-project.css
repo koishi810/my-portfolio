@@ -693,3 +693,269 @@
     width: 116vw;
   }
 }
+
+/* On phones, keep the existing reading order but let text and diagrams flow.
+   The desktop design canvas and the original assets remain unchanged. */
+@media (max-width: 700px) {
+  .flower-reading-frame-shell {
+    height: auto !important;
+    width: 100% !important;
+  }
+
+  .flower-reading-frame {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: auto;
+    overflow: visible;
+    padding-bottom: 48px;
+    position: relative;
+    transform: none !important;
+    width: 100%;
+  }
+
+  .flower-reading-logo-band {
+    aspect-ratio: 1323.708 / 744.585;
+    height: auto;
+    inset: auto;
+    margin-top: calc(100vw * 109.688 / 1322);
+    position: relative;
+    width: 100%;
+  }
+
+  .flower-reading-copy {
+    inset: auto;
+    margin-inline: 20px;
+    position: relative;
+    width: auto;
+  }
+
+  .flower-reading-copy h2 {
+    font-size: 22px;
+    line-height: 1.45;
+    margin-bottom: 16px;
+  }
+
+  .flower-reading-copy p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 1em;
+  }
+
+  .flower-reading-copy p:last-child {
+    margin-bottom: 0;
+  }
+
+  .flower-feeling-cluster {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: auto;
+    inset: auto;
+    margin-inline: 20px;
+    position: relative;
+    width: auto;
+  }
+
+  .flower-feeling-group {
+    inset: auto;
+    position: relative;
+    width: auto;
+  }
+
+  .flower-feeling-joy,
+  .flower-feeling-neutral {
+    grid-column: 1 / -1;
+  }
+
+  .flower-project-page .flower-feeling-images {
+    min-height: 72px;
+  }
+
+  .flower-feeling-images img {
+    height: 64px;
+    margin-left: -16px;
+    width: 64px;
+  }
+
+  .flower-feeling-images img:first-child {
+    margin-left: 0;
+  }
+
+  .flower-feeling-group figcaption {
+    font-size: 14px;
+  }
+
+  .flower-weather-cluster {
+    aspect-ratio: 911.248 / 764.8849;
+    height: auto;
+    inset: auto;
+    margin-inline: 20px;
+    position: relative;
+    width: auto;
+  }
+
+  .flower-weather-cluster img {
+    height: auto;
+  }
+
+  .flower-weather-sun {
+    left: 0;
+    top: 0;
+    width: 39.7001%;
+  }
+
+  .flower-weather-rain {
+    left: 40.0514%;
+    top: 4.6561%;
+    width: 28.4517%;
+  }
+
+  .flower-weather-cloud {
+    left: 8.4011%;
+    top: 28.2110%;
+    width: 38.5907%;
+  }
+
+  .flower-weather-thunder {
+    left: 16.3818%;
+    top: 30.7734%;
+    width: 83.6182%;
+  }
+}
+
+/* Keep the horizontal introduction, widening only its phone text slots. */
+@media (max-width: 700px) {
+  .flower-main-copy {
+    --flower-readable-normal-bottom: calc(24px / var(--flower-stage-scale) - 55.55px);
+    gap: calc(clamp(6px, 15svh - 36px, 12px) / var(--flower-stage-scale));
+    top: auto;
+    white-space: normal;
+    width: var(--flower-readable-main-width);
+  }
+
+  .flower-main-copy h1 {
+    font-size: calc(clamp(16px, 10svh - 12px, 20px) / var(--flower-stage-scale));
+    line-height: 1.2;
+    word-break: keep-all;
+  }
+
+  .flower-date,
+  .flower-type {
+    font-size: calc(12px / var(--flower-stage-scale));
+    line-height: 1.4;
+  }
+
+  .flower-metadata {
+    --flower-readable-normal-bottom: 55.66px;
+    gap: calc(clamp(4px, 6.666667svh - 22.666667px, 12px) / var(--flower-stage-scale)) calc(14px / var(--flower-stage-scale));
+    height: auto;
+    top: auto;
+    width: var(--flower-readable-width);
+  }
+
+  .flower-metadata dt,
+  .flower-metadata dd {
+    font-size: calc(clamp(12px, 5svh - 2px, 14px) / var(--flower-stage-scale));
+    line-height: 1.4;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .flower-metadata-row:nth-child(4) dd,
+  .flower-metadata-row:nth-child(6) dd {
+    width: auto;
+  }
+
+  .flower-project-intro {
+    --flower-readable-normal-bottom: 31.66px;
+    font-size: calc(clamp(12px, 5svh - 2px, 14px) / var(--flower-stage-scale));
+    left: var(--flower-readable-intro-left);
+    line-height: calc(clamp(15px, 11.5svh - 17.2px, 19.6px) / var(--flower-stage-scale));
+    top: auto;
+    white-space: normal;
+    width: var(--flower-readable-width);
+  }
+
+  .flower-project-intro p {
+    margin-bottom: calc(clamp(4px, 10svh - 24px, 8px) / var(--flower-stage-scale));
+  }
+
+  .flower-project-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .flower-main-copy,
+  .flower-metadata,
+  .flower-project-intro {
+    bottom: max(
+      calc((905px - 100svh / var(--flower-stage-scale)) / 2 + 16px / var(--flower-stage-scale)),
+      calc(var(--flower-readable-normal-bottom) - max(0px, 600px - 100svh) / var(--flower-stage-scale))
+    );
+  }
+
+  .flower-horizontal-exhibition-frame {
+    left: var(--flower-exhibition-left);
+  }
+
+  .flower-horizontal-exhibition-copy {
+    display: flex;
+    flex-direction: column;
+    gap: calc(12px / var(--flower-stage-scale));
+    height: auto;
+    left: calc((1322px - var(--flower-readable-width)) / 2);
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: var(--flower-readable-width);
+  }
+
+  .flower-horizontal-exhibition-copy h2,
+  .flower-horizontal-exhibition-copy p {
+    inset: auto;
+    position: static;
+    width: auto;
+  }
+
+  .flower-horizontal-exhibition-copy h2 {
+    font-size: calc(20px / var(--flower-stage-scale));
+    line-height: 1.4;
+  }
+
+  .flower-horizontal-exhibition-copy p {
+    font-size: calc(12px / var(--flower-stage-scale));
+    line-height: 1.6;
+  }
+}
+
+/* Keep the approved phone palette, without the old small-text dimming. */
+@media (max-width: 700px) {
+  .flower-reading-copy h2,
+  .flower-reading-copy p,
+  .flower-feeling-group figcaption {
+    opacity: 1;
+  }
+}
+
+/* Desktop weather explanation: keep the approved white palette fully readable. */
+@media (min-width: 701px) {
+  .flower-reading-copy-weather h2,
+  .flower-reading-copy-weather p {
+    opacity: 1;
+  }
+}
+
+/* Let users select the weather explanation without intercepting its image layer. */
+.flower-reading-copy-weather > h2,
+.flower-reading-copy-weather > p {
+  pointer-events: auto;
+}
+
+/* Rules and emotion captions: keep this blue-background copy fully readable. */
+@media (min-width: 701px) {
+  .flower-reading-copy-rules h2,
+  .flower-reading-copy-rules p,
+  .flower-feeling-group figcaption {
+    opacity: 1;
+  }
+}

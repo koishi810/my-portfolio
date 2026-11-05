@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
-import { mix, useScrollProgress, useStageMetrics, useWidthScale } from "../../hooks/useScrollProgress.js";
+import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
+import useLegacyDetailNavigationFade from "../../hooks/useLegacyDetailNavigationFade.js";
+import { mixPointerPosition, useScrollProgress, useStageMetrics, useWidthScale } from "../../hooks/useScrollProgress.js";
 import "../../styles/flower-machine-project.css";
 
 const DESIGN_WIDTH = 1440;
@@ -48,29 +50,41 @@ function usePointerParallax(ref) {
       const halfHeight = window.innerHeight / 2 || 1;
       target.x = ((event.clientX - halfWidth) / halfWidth) * 5;
       target.y = ((event.clientY - halfHeight) / halfHeight) * 2;
+      schedule();
     };
 
     const resetTarget = () => {
       target.x = 0;
       target.y = 0;
+      schedule();
     };
 
     const tick = () => {
-      current.x = mix(current.x, target.x, 0.07);
-      current.y = mix(current.y, target.y, 0.07);
+      frameId = null;
+      const previousX = current.x;
+      const previousY = current.y;
+      current.x = mixPointerPosition(current.x, target.x, 0.07);
+      current.y = mixPointerPosition(current.y, target.y, 0.07);
 
-      if (ref.current) {
-        ref.current.style.setProperty("--flower-bg-x", `${current.x}px`);
-        ref.current.style.setProperty("--flower-bg-y", `${current.y}px`);
+      const background = ref.current;
+      if (background) {
+        const x = `${current.x}px`;
+        const y = `${current.y}px`;
+        if (background.style.getPropertyValue("--flower-bg-x") !== x) background.style.setProperty("--flower-bg-x", x);
+        if (background.style.getPropertyValue("--flower-bg-y") !== y) background.style.setProperty("--flower-bg-y", y);
       }
 
-      frameId = window.requestAnimationFrame(tick);
+      // Stop after the subpixel terminal snap; new pointer input schedules again.
+      if (!background || current.x !== previousX || current.y !== previousY) schedule();
+    };
+    const schedule = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(tick);
     };
 
     window.addEventListener("pointermove", updateTarget);
     window.addEventListener("pointerleave", resetTarget);
     window.addEventListener("blur", resetTarget);
-    frameId = window.requestAnimationFrame(tick);
+    schedule();
 
     return () => {
       window.removeEventListener("pointermove", updateTarget);
@@ -168,7 +182,14 @@ function FlowerFirstSection() {
   const safeScale = Math.max(scale, 0.0001);
   const exhibitionViewportWidth = EXHIBITION_WIDTH * scale;
   const exhibitionViewportLeft = Math.max((viewportWidth - exhibitionViewportWidth) / 2, 0);
-  const trackDesignWidth = DETAIL_WIDTH + EXHIBITION_WIDTH + exhibitionViewportLeft / safeScale;
+  const readableNarrow = viewportWidth <= 700;
+  const readableWidth = Math.min(Math.max(viewportWidth - 48, 240), 480) / safeScale;
+  const readableIntroLeft = META_LEFT + readableWidth + 48 / safeScale;
+  const readableMainWidth = Math.max((644.42 - 109.92) * safeScale - 16, 88) / safeScale;
+  const exhibitionLeft = readableNarrow
+    ? readableIntroLeft + readableWidth + 48 / safeScale
+    : EXHIBITION_LEFT;
+  const trackDesignWidth = exhibitionLeft + EXHIBITION_WIDTH + exhibitionViewportLeft / safeScale;
   const trackWidth = trackDesignWidth * scale;
   const maxTranslate = Math.max(trackWidth - viewportWidth, 0);
   const translateX = -maxTranslate * Math.min(progress / HORIZONTAL_END, 1);
@@ -188,6 +209,11 @@ function FlowerFirstSection() {
           <div
             className="flower-design-stage"
             style={{
+              "--flower-stage-scale": safeScale,
+              "--flower-readable-width": `${readableWidth}px`,
+              "--flower-readable-intro-left": `${readableIntroLeft}px`,
+              "--flower-readable-main-width": `${readableMainWidth}px`,
+              "--flower-exhibition-left": `${exhibitionLeft}px`,
               transform: `scale(${scale})`,
               width: `${trackDesignWidth}px`,
             }}
@@ -200,7 +226,7 @@ function FlowerFirstSection() {
 
             <div className="flower-main-copy flower-difference">
               <p className="flower-date">2025.09~2025.11</p>
-              <h1>きもち de フラワーマシン</h1>
+              <h1>きもち de <wbr />フラワー<wbr />マシン</h1>
               <p className="flower-type">Interactive Installation / Visual System</p>
             </div>
 
@@ -221,6 +247,19 @@ function FlowerFirstSection() {
   );
 }
 
+// Keyboard entry must finish before Enter can open the image dialog.
+// Keep pointer clicks and dialog-close focus restoration at their original position.
+function revealKeyboardReadingImage(event) {
+  const image = event.currentTarget;
+  if ((event.type !== "keydown" && !image.matches(":focus-visible")) || event.relatedTarget?.closest(".project-image-dialog")) return;
+
+  const bounds = image.getBoundingClientRect();
+  const clearTop = Math.min(window.innerHeight / 3, window.innerWidth <= 700 ? 112 : 104);
+  const availableHeight = window.innerHeight - clearTop;
+  const top = window.scrollY + bounds.top - clearTop - Math.max((availableHeight - bounds.height) / 2, 0);
+  window.scrollTo({ left: window.scrollX, top, behavior: "instant" });
+}
+
 function FlowerFeelingCluster() {
   return (
     <div className="flower-feeling-cluster" aria-label="Generated flower examples">
@@ -228,7 +267,7 @@ function FlowerFeelingCluster() {
         <figure className={`flower-feeling-group ${group.className}`} key={group.label}>
           <div className="flower-feeling-images">
             {group.files.map((file, index) => (
-              <img alt="" key={file} src={`${ASSET_BASE}/${file}`} style={{ "--flower-rotate": `${index % 2 ? 8 : -6}deg` }} />
+              <FullscreenImage onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage} alt="" imageLabel={`${group.label}の花 ${index + 1}`} key={file} src={`${ASSET_BASE}/${file}`} style={{ "--flower-rotate": `${index % 2 ? 8 : -6}deg` }} />
             ))}
           </div>
           <figcaption>{group.label}</figcaption>
@@ -241,10 +280,10 @@ function FlowerFeelingCluster() {
 function FlowerWeatherCluster() {
   return (
     <div className="flower-weather-cluster" aria-label="Weather symbol examples">
-      <img className="flower-weather-sun" alt="" src={`${ASSET_BASE}/weather-sun.gif`} />
-      <img className="flower-weather-rain" alt="" src={`${ASSET_BASE}/weather-rain.gif`} />
-      <img className="flower-weather-cloud" alt="" src={`${ASSET_BASE}/weather-cloud.gif`} />
-      <img className="flower-weather-thunder" alt="" src={`${ASSET_BASE}/weather-thunder.gif`} />
+      <FullscreenImage onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage} className="flower-weather-sun" alt="" imageLabel="太陽" src={`${ASSET_BASE}/weather-sun.gif`} />
+      <FullscreenImage onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage} className="flower-weather-rain" alt="" imageLabel="雨" src={`${ASSET_BASE}/weather-rain.gif`} />
+      <FullscreenImage onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage} className="flower-weather-cloud" alt="" imageLabel="雲" src={`${ASSET_BASE}/weather-cloud.gif`} />
+      <FullscreenImage onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage} className="flower-weather-thunder" alt="" imageLabel="雷" src={`${ASSET_BASE}/weather-thunder.gif`} />
     </div>
   );
 }
@@ -294,11 +333,12 @@ function FlowerReadingSection() {
 }
 
 export default function FlowerMachine() {
+  const pageRef = useLegacyDetailNavigationFade("flower");
   const backgroundRef = useRef(null);
   usePointerParallax(backgroundRef);
 
   return (
-    <main className="flower-project-page">
+    <main className="flower-project-page" ref={pageRef}>
       <FlowerBackground backgroundRef={backgroundRef} />
       <FlowerChrome />
       <FlowerFirstSection />

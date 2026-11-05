@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@400;700&display=swap");
+
+.sugar-project-page {
+  background: #e9e6e1;
+  color: #e6e6e6;
+  font-family: "Noto Serif JP", Georgia, serif;
+  min-height: 100svh;
+  overflow-x: clip;
+  padding-bottom: 96px;
+  position: relative;
+}
+
+/* Cool neutral background echoes the supplied pages without altering their pixels. */
+.sugar-fixed-background {
+  background: #e9e6e1;
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+}
+
+.sugar-chrome {
+  color: #d9d9d9;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: difference;
+  position: fixed;
+  z-index: 30;
+}
+.sugar-version {
+  color: inherit;
+  left: 50.752px;
+  position: fixed;
+  text-decoration: none;
+  top: 35.522px;
+  white-space: nowrap;
+}
+.sugar-version-box {
+  height: 38px;
+  left: 195px;
+  max-width: 454px;
+  overflow: hidden;
+  position: fixed;
+  right: 430px;
+  top: 25px;
+}
+.sugar-version-box span {
+  animation: sugar-version-scroll 14s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+.sugar-nav {
+  display: flex;
+  gap: 38px;
+  position: fixed;
+  right: 57px;
+  top: 35.522px;
+}
+.sugar-nav a { color: inherit; text-decoration: none; white-space: nowrap; }
+.sugar-project-page a:focus-visible { outline: 1px solid currentColor; outline-offset: 7px; }
+
+.sugar-project-page .sugar-navigation-fade-layer {
+  clip-path: inset(max(0px, var(--sugar-fade-clear)) 0 0 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--sugar-fade-clear), #000 var(--sugar-fade-full));
+  mask-image: linear-gradient(to bottom, transparent var(--sugar-fade-clear), #000 var(--sugar-fade-full));
+}
+.sugar-project-page .sugar-navigation-fade-layer:focus-visible { outline-offset: -1px; }
+
+.sugar-hero {
+  align-items: end;
+  display: grid;
+  gap: clamp(36px, 6vw, 86px);
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.7fr);
+  margin: 0 auto;
+  max-width: 1600px;
+  min-height: min(905px, 100svh);
+  padding: 144px clamp(24px, 7.6vw, 110px) 80px;
+  position: relative;
+}
+.sugar-heading { display: flex; flex-direction: column; gap: 30px; min-width: 0; }
+.sugar-heading > *,
+.sugar-metadata dt,
+.sugar-metadata dd,
+.sugar-intro > p,
+.sugar-back-link { color: #e6e6e6; mix-blend-mode: difference; position: relative; z-index: 5; }
+.sugar-heading > * { margin: 0; }
+.sugar-date { font-size: 15px; line-height: 1.6; }
+.sugar-heading h1 { font-size: 32px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.sugar-type { font-size: 20px; line-height: 1.6; }
+.sugar-cover { margin: 0; min-width: 0; position: relative; z-index: 5; }
+.sugar-cover > img { display: block; height: auto; width: 100%; }
+.sugar-information {
+  display: grid;
+  gap: 64px clamp(48px, 8vw, 120px);
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 80px clamp(24px, 7.6vw, 110px) 64px;
+  position: relative;
+}
+.sugar-metadata { display: grid; gap: 32px 28px; grid-template-columns: max-content minmax(0, 1fr); margin: 0; }
+.sugar-metadata-row { display: contents; }
+.sugar-metadata dt, .sugar-metadata dd { font-size: 15px; line-height: 1.8; margin: 0; }
+.sugar-metadata dt { font-weight: 700; }
+.sugar-metadata dd { overflow-wrap: anywhere; text-align: right; white-space: pre-line; }
+.sugar-intro > p { font-size: 18px; line-height: 1.9; margin: 0 0 24px; }
+.sugar-intro > p:last-child { margin-bottom: 0; }
+.sugar-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin: 48px auto 0;
+  max-width: 1220px;
+  padding: 0 clamp(24px, 4vw, 64px);
+  position: relative;
+}
+.sugar-gallery-group { display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.sugar-gallery-group-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.sugar-gallery-group-portrait { align-self: center; max-width: 620px; width: 62%; }
+.sugar-photograph { margin: 0; min-width: 0; position: relative; z-index: 5; }
+.sugar-photograph > img { display: block; height: auto; width: 100%; }
+.sugar-back-link { display: block; font-family: "Noto Sans JP", system-ui, sans-serif; font-size: 14px; margin: 96px auto 0; text-decoration: none; width: fit-content; }
+
+@keyframes sugar-version-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (max-width: 920px) {
+  .sugar-version-box { display: none; }
+  .sugar-hero { align-items: start; gap: 40px; grid-template-columns: minmax(0, 1fr); min-height: auto; padding: 144px 24px 0; }
+  .sugar-heading { gap: 18px; }
+  .sugar-gallery { gap: 56px; margin-top: 64px; padding: 0 24px; }
+  .sugar-gallery-group { gap: 24px; }
+  .sugar-information { gap: 48px; grid-template-columns: minmax(0, 1fr); padding: 56px 24px 0; }
+  .sugar-metadata { max-width: 560px; width: 100%; }
+  .sugar-back-link { margin-top: 72px; }
+}
+@media (max-width: 700px) {
+  .sugar-project-page { padding-bottom: 64px; }
+  .sugar-chrome { font-size: 12px; }
+  .sugar-version { left: 16px; top: 18px; }
+  .sugar-nav { gap: 16px; left: 16px; right: auto; top: 46px; }
+  .sugar-hero { padding-top: 132px; }
+  .sugar-gallery { gap: 40px; }
+  .sugar-gallery-group-pair { grid-template-columns: minmax(0, 1fr); }
+  .sugar-gallery-group-portrait { width: 100%; }
+  .sugar-heading h1 { font-size: 28px; }
+  .sugar-type { font-size: 17px; }
+  .sugar-metadata { gap: 24px 18px; }
+  .sugar-metadata dt, .sugar-metadata dd { font-size: 14px; }
+  .sugar-intro > p { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sugar-version-box span { animation: none; padding-left: 0; }
+}
+
+@media (min-width: 921px) {
+  .sugar-hero { padding-bottom: clamp(128px, 18svh, 164px); }
+}
+
+.sugar-gallery-section { display: flex; flex-direction: column; gap: 40px; }
+.sugar-section-title { color: #e6e6e6; font-size: 28px; font-weight: 700; line-height: 1.4; margin: 0; mix-blend-mode: difference; position: relative; z-index: 5; }
+.sugar-gallery .sugar-photograph { margin: 0; }
+.sugar-project-page .project-image-trigger:focus-visible { outline-color: #252a30; }
+.sugar-package-details { display: flex; flex-direction: column; gap: 32px; }
+.sugar-note { color: #e6e6e6; font-size: 16px; line-height: 1.9; margin: 0; mix-blend-mode: difference; position: relative; z-index: 5; }
+.sugar-process-copy { display: grid; gap: 20px; }
+.sugar-process-notes { align-self: center; max-width: 920px; width: 100%; }
+.sugar-entrance { height: 225svh; position: relative; }
+.sugar-entrance-stage { height: var(--sugar-entrance-height, 100svh); overflow: hidden; position: sticky; top: 0; }
+.sugar-entrance-track { display: flex; height: 100%; width: 200%; }
+.sugar-entrance-panel { flex: 0 0 50%; min-width: 0; position: relative; }
+.sugar-entrance-cover { height: 100%; }
+.sugar-entrance-cover > img { height: 100%; object-fit: contain; width: 100%; filter: brightness(1.045) sepia(0.07) saturate(0.9); }
+.project-image-dialog-image[src$="/sugar-n/hero.webp"] { filter: brightness(1.045) sepia(0.07) saturate(0.9); }
+.sugar-entrance-hero .sugar-heading { bottom: 56px; gap: 20px; left: clamp(24px, 7.6vw, 110px); pointer-events: none; position: absolute; }
+.sugar-entrance-pdf { align-items: center; display: flex; justify-content: center; padding: 104px 24px 32px; }
+.sugar-entrance-pdf .sugar-photograph { max-height: 100%; max-width: 100%; }
+.sugar-entrance-pdf img { height: auto; max-height: calc(var(--sugar-entrance-height, 100svh) - 136px); object-fit: contain; width: auto; max-width: 100%; }
+.sugar-poster-grid { align-items: start; display: grid; gap: 24px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 700px) { .sugar-section-title { font-size: 24px; } .sugar-gallery-section { gap: 24px; } }
+@media (max-width: 700px) { .sugar-poster-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.sugar-logo-grid { display: grid; gap: 24px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.sugar-logo-clip { margin: 0; min-width: 0; position: relative; z-index: 5; }
+.sugar-logo-clip video { aspect-ratio: 1; background: #fff; display: block; height: auto; width: 100%; }
+@media (max-width: 700px) { .sugar-logo-grid { grid-template-columns: minmax(0, 1fr); } .sugar-logo-clip { margin: 0 auto; max-width: 440px; width: 100%; } }
+
+@media (max-width: 700px) {
+  .sugar-entrance-hero { display: flex; flex-direction: column; justify-content: center; padding: 112px 0 32px; gap: 28px; }
+  .sugar-entrance-cover { flex: 0 0 auto; height: auto; width: 100%; }
+  /* Keep the full image and all three title lines inside the sticky panel,
+     including medium-width windows just above the short-screen breakpoint. */
+  .sugar-entrance-cover > img { height: auto; max-height: max(80px, calc(var(--sugar-entrance-height, 100svh) - 280px)); object-fit: contain; }
+  .sugar-entrance-hero .sugar-heading { bottom: auto; gap: 14px; left: auto; margin: 0 24px; position: relative; }
+}
+
+.sugar-entrance-hero { background: #d1cecb; }
+@media (max-width: 700px) { .sugar-entrance-hero { justify-content: flex-start; padding-top: 100px; } }
+.sugar-logo-open { background: none; border: 0; cursor: zoom-in; display: block; padding: 0; width: 100%; }
+.sugar-logo-open:focus-visible { outline: 1px solid #252a30; outline-offset: -2px; }
+.sugar-logo-open[data-pointer-focus="true"]:focus { outline: none; }
+.sugar-logo-toggle, .sugar-logo-dialog-toggle { align-items: center; background: rgba(255,255,255,.9); border: 1px solid rgba(0,0,0,.2); border-radius: 50%; color: #252a30; cursor: pointer; display: flex; font-size: 16px; height: 44px; justify-content: center; width: 44px; }
+.sugar-logo-toggle { bottom: 12px; opacity: 0; position: absolute; right: 12px; transition: opacity 150ms; }
+.sugar-logo-clip:hover .sugar-logo-toggle, .sugar-logo-clip:focus-within .sugar-logo-toggle, .sugar-logo-clip[data-completed="true"] .sugar-logo-toggle { opacity: 1; }
+.sugar-logo-toggle:focus-visible, .sugar-logo-dialog-toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.sugar-logo-dialog-toggle { bottom: 24px; position: fixed; right: 24px; }
+.project-image-dialog-video { background: transparent; }
+@media (hover: none), (max-width: 700px) { .sugar-logo-toggle { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sugar-logo-toggle { transition: none; } }
+
+@media (max-width: 700px) and (max-height: 600px) {
+  .sugar-entrance-hero { gap: 16px; padding: 84px 24px 16px; }
+  .sugar-entrance-cover > img { max-height: max(80px, calc(var(--sugar-entrance-height, 100svh) - 222px)); object-fit: contain; }
+  .sugar-entrance-hero .sugar-heading { gap: 8px; margin: 0; }
+}
+
+/* A short landscape viewport uses the same full-image/title composition as
+   desktop, rather than reducing the entire hero to a small thumbnail. */
+@media (max-width: 700px) and (max-height: 450px) and (min-aspect-ratio: 3/2) {
+  .sugar-entrance-hero { display: block; padding: 0; }
+  .sugar-entrance-cover { height: 100%; width: 100%; }
+  .sugar-entrance-cover > img { height: 100%; max-height: none; object-fit: contain; }
+  .sugar-entrance-hero .sugar-heading { bottom: 24px; gap: 8px; left: 24px; margin: 0; position: absolute; }
+}
+
+/* Phones use natural reading order instead of two viewport-height panels.
+   Very short desktop windows retain the same accessible vertical fallback. */
+@media (max-width: 700px), (max-height: 300px) {
+  .sugar-entrance-stage { height: auto; overflow: visible; position: relative; }
+  .sugar-entrance-track { display: block; height: auto; width: 100%; }
+  .sugar-entrance-panel { width: 100%; }
+  .sugar-entrance-hero { display: flex; flex-direction: column; gap: 24px; padding: 112px 24px 32px; }
+  .sugar-entrance-cover { height: auto; }
+  .sugar-entrance-cover > img { height: auto; max-height: none; }
+  .sugar-entrance-hero .sugar-heading { bottom: auto; left: auto; margin: 0; position: relative; }
+  .sugar-entrance-pdf { padding: 40px 24px; }
+  .sugar-entrance-pdf img { max-height: none; width: 100%; }
+}
+
+/* Preserve all navigation labels when browser zoom leaves a very narrow layout. */
+@media (max-width: 320px) {
+  .sugar-nav { gap: 8px; }
+}
+
+/* Keep metadata at its natural rhythm rather than stretching to the prose. */
+.sugar-information { align-items: start; }
+@media (min-width: 921px) and (max-width: 1100px) {
+  .sugar-information { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+}
+
+/* Match the established KOKO opening: copy in the left field, visual on the right. */
+@media (min-width: 701px) and (min-height: 301px) {
+  .sugar-entrance-cover {
+    height: 107.18%;
+    left: 44.75%;
+    position: absolute;
+    top: -1.04%;
+    width: 79.51%;
+  }
+  .sugar-entrance-cover > img { object-fit: cover; }
+  .sugar-entrance-hero .sugar-heading {
+    bottom: 8.4%;
+    gap: clamp(16px, 2.08vw, 30px);
+    left: 7.63%;
+    max-width: 33%;
+  }
+}
+@media (min-width: 701px) and (min-height: 301px) {
+  .sugar-entrance-hero { overflow: hidden; }
+}
+
+/* Let the opening visual dissolve into the page, while retaining a crisp subject. */
+.sugar-entrance-cover {
+  transform: scale(1.06);
+  transform-origin: center;
+}
+.sugar-entrance-cover > img {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent), linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}

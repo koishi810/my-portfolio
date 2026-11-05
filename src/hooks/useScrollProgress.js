@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -67,15 +67,22 @@ export function useWidthScale(designWidth = 1440, maxScale = 1) {
   return scale;
 }
 
-export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, viewportHeight } = {}) {
+export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, viewportHeight, preserveOnResize = false, snapRef } = {}) {
   const [progress, setProgress] = useState(0);
+  const previous = useRef({ value: 0, sectionRef, section: sectionRef.current, smooth, easing, viewportHeight, preserveOnResize });
 
   useEffect(() => {
     let frameId = null;
-    let currentProgress = 0;
+    // Only the opted-in About scene continues its current animation on resize.
+    // Other scenes and non-resize effect restarts retain the original reset.
+    const last = previous.current;
+    const resizingSameScene = preserveOnResize && last.preserveOnResize === preserveOnResize &&
+      last.sectionRef === sectionRef && last.section === sectionRef.current && last.smooth === smooth && last.easing === easing && last.viewportHeight !== viewportHeight;
+    let currentProgress = resizingSameScene ? last.value : 0;
+    previous.current = { value: currentProgress, sectionRef, section: sectionRef.current, smooth, easing, viewportHeight, preserveOnResize };
     let targetProgress = 0;
 
-    const updateProgress = () => {
+    const readTargetProgress = () => {
       const section = sectionRef.current;
 
       if (section) {
@@ -85,6 +92,20 @@ export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, v
         targetProgress = clamp(-rect.top / scrollable, 0, 1);
       }
 
+      return targetProgress;
+    };
+
+    // Opt-in keyboard scene navigation can synchronize the animation with a
+    // deliberate instant document scroll without changing normal wheel easing.
+    const snapToScroll = () => {
+      currentProgress = readTargetProgress();
+      previous.current.value = currentProgress;
+      setProgress(currentProgress);
+    };
+    if (snapRef) snapRef.current = snapToScroll;
+
+    const updateProgress = () => {
+      readTargetProgress();
       currentProgress = smooth
         ? lerp(currentProgress, targetProgress, easing)
         : targetProgress;
@@ -93,6 +114,7 @@ export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, v
         currentProgress = targetProgress;
       }
 
+      previous.current.value = currentProgress;
       setProgress(currentProgress);
       frameId = window.requestAnimationFrame(updateProgress);
     };
@@ -101,8 +123,9 @@ export function useScrollProgress(sectionRef, { smooth = false, easing = 0.12, v
 
     return () => {
       if (frameId !== null) window.cancelAnimationFrame(frameId);
+      if (snapRef?.current === snapToScroll) snapRef.current = null;
     };
-  }, [easing, sectionRef, smooth, viewportHeight]);
+  }, [easing, preserveOnResize, sectionRef, smooth, viewportHeight, snapRef]);
 
   return progress;
 }
@@ -113,4 +136,11 @@ export function progressBetween(progress, start, end) {
 
 export function mix(from, to, amount) {
   return from + (to - from) * amount;
+}
+
+// Only pointer backgrounds use this terminal tolerance. Scroll progress keeps
+// the original mix above. Avoid a near-zero floating-point tail of idle frames.
+export function mixPointerPosition(from, to, amount) {
+  const next = mix(from, to, amount);
+  return Math.abs(to - next) < 0.0001 ? to : next;
 }

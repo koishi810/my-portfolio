@@ -24,14 +24,15 @@ export const featuredProjects = [
   },
   {
     slug: "arctic-lab",
-    date: "2023~",
-    title: "ARCTIC LAB",
+    date: "2022年以降",
+    title: "ARCTICLAB",
+    subtitle: "アルバムシリーズ",
     type: "Logotype / Graphic design",
     description:
       "友人の音楽プロジェクトのために制作している、アルバムアートワークとロゴタイプのシリーズです。\n\n年に一枚ほどのペースで制作を続けています。",
-    href: "/works",
+    href: "/works/arctic-lab",
     image: "/assets/home/arctic-lab.png",
-    imageLabel: "ARCTIC LAB",
+    imageLabel: "ARCTICLAB アルバムシリーズ",
   },
 ];
 

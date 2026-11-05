@@ -1,3 +1,4 @@
+import { portfolioUpdateNotice, portfolioVersionLabel } from "../../data/siteMeta.js";
 import { useEffect, useRef, useState } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 
@@ -78,9 +79,9 @@ function MaskLayer() {
 function GlobalChromeLayer() {
   return (
     <div className="about-test-global-chrome">
-      <p className="about-test-version">Portfolio ver0.1</p>
+      <p className="about-test-version">{portfolioVersionLabel}</p>
       <div className="about-test-version-box">
-        <span>2026.06.09 更新しました　2026.06.09 更新しました　</span>
+        <span>{`${portfolioUpdateNotice}　${portfolioUpdateNotice}　`}</span>
       </div>
       <nav className="about-test-nav" aria-label="Test navigation">
         <span>TOP</span>

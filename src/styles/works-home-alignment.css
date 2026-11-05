@@ -1,0 +1,245 @@
+/* Independent WORKS candidate: Home's typography, proportions and exact
+   per-project hover treatment. No selectors apply to Home or About. */
+.directory-page-works .directory-background img { filter: grayscale(1) invert(1) brightness(1.10) contrast(.82) blur(18px); }
+.directory-page-works .directory-mask-inversion { display: none; }
+.directory-page-works .directory-mask { background: rgba(255,255,255,.01); }
+.directory-page-works .directory-results {
+  --works-left: clamp(40px, 8.16vw, 117.5px);
+  --works-text: clamp(320px, 29.72vw, 428px);
+  --works-gap: clamp(36px, 6.28vw, 90.5px);
+  --works-image-width: min(804px, calc(100vw - var(--works-left) - var(--works-text) - var(--works-gap)));
+  --works-image-height: calc(var(--works-image-width) * 497 / 804);
+  --works-pause: clamp(460px, 54svh, 680px);
+  padding: 0 0 160px;
+}
+.directory-page-works .directory-category { position: relative; scroll-margin-top: 14px; }
+.directory-page-works .directory-results-title {
+  margin: 0 0 80px clamp(40px, 7.1vw, 102.252px);
+  position: sticky;
+  text-align: left;
+  top: 94px;
+  width: fit-content;
+  z-index: 8;
+}
+.directory-page-works .directory-project-list { display: block; margin: 0; }
+.directory-page-works .directory-work-step {
+  min-height: calc(var(--works-image-height) + var(--works-pause));
+  position: relative;
+  width: 100%;
+}
+.directory-page-works .directory-project {
+  align-items: start;
+  display: grid;
+  gap: var(--works-gap);
+  grid-template-columns: var(--works-text) minmax(320px, 1fr);
+  justify-content: normal;
+  margin-left: var(--works-left);
+  min-height: var(--works-image-height);
+  position: sticky;
+  top: var(--work-sticky-top, 260px);
+  width: calc(100% - var(--works-left));
+  will-change: clip-path;
+  z-index: 5;
+}
+.directory-page-works .directory-project-copy {
+  gap: clamp(18px, 2.08vw, 30px);
+  height: var(--works-image-height);
+  max-width: none;
+  mix-blend-mode: normal;
+  width: var(--works-text);
+}
+.directory-page-works .directory-project-copy > * {
+  color: #e6e6e6;
+  filter: invert(1);
+  mix-blend-mode: difference;
+}
+.directory-page-works .directory-project-copy h3 { font-size: clamp(24px, 2.22vw, 32px); font-weight: 700; line-height: 1; }
+.directory-page-works .directory-project-date,
+.directory-page-works .directory-project-description { font-size: 15px; line-height: 1.6; }
+.directory-page-works .directory-project-type { font-size: 20px; line-height: 1.6; }
+.directory-page-works .directory-project-image {
+  aspect-ratio: 804 / 497;
+  background: #505050;
+  height: auto;
+  justify-self: end;
+  position: relative;
+  transition: background-color 180ms ease, filter 180ms ease;
+  width: var(--works-image-width);
+}
+.directory-page-works .directory-project-image::before {
+  background: rgba(0,0,0,.15); content: ''; inset: 0; opacity: 1;
+  position: absolute; transition: opacity 180ms ease, background-color 180ms ease; z-index: 1;
+}
+.directory-page-works .directory-project-image img {
+  filter: none; height: auto; max-height: 78%; max-width: 82%; object-fit: contain; position: relative; width: auto; z-index: 2;
+}
+.directory-page-works .directory-project-koko .directory-project-image {
+  background-image: linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.18)),url('/assets/home/koko-background.png');
+  background-position: center; background-size: cover; filter: grayscale(1) brightness(1.12) contrast(.78);
+}
+.directory-page-works .directory-project-koko .directory-project-image img { height: auto; max-height: none; max-width: none; width: calc(237 / 804 * 100%); }
+.directory-page-works .directory-project-koko .directory-project-image:hover,
+.directory-page-works .directory-project-koko .directory-project-image:focus-visible { background-color: #505050; filter: grayscale(0) brightness(1) contrast(1); }
+.directory-page-works .directory-project-flower-machine .directory-project-image { background: #11a5d8; filter: grayscale(1); }
+.directory-page-works .directory-project-flower-machine .directory-project-image img { height: 100%; max-height: none; max-width: none; object-fit: cover; width: 100%; }
+.directory-page-works .directory-project-arctic-lab .directory-project-image {
+  background-color: #8f8f8f;
+  background-image: linear-gradient(rgba(0,0,0,.08),rgba(0,0,0,.08)),url('/assets/home/arctic-lab-background.png');
+  background-position: center; background-size: cover; filter: grayscale(1);
+}
+.directory-page-works .directory-project-arctic-lab .directory-project-image img { height: auto; max-height: none; max-width: none; width: calc(180 / 804 * 100%); }
+.directory-page-works .directory-project-matryoshka .directory-project-image { aspect-ratio: 2048 / 1365; background: #d5dcdc; filter: grayscale(1); }
+.directory-page-works .directory-project-matryoshka .directory-project-image img { display: block; height: auto; max-height: none; max-width: none; width: 100%; }
+.directory-page-works .directory-project-flower-machine .directory-project-image:hover,
+.directory-page-works .directory-project-flower-machine .directory-project-image:focus-visible { background-color: #11a5d8; filter: grayscale(0); }
+.directory-page-works .directory-project-arctic-lab .directory-project-image:hover,
+.directory-page-works .directory-project-arctic-lab .directory-project-image:focus-visible { background-color: #8f8f8f; filter: grayscale(0); }
+.directory-page-works .directory-project-matryoshka .directory-project-image:hover,
+.directory-page-works .directory-project-matryoshka .directory-project-image:focus-visible { background-color: #d5dcdc; filter: grayscale(0); }
+.directory-page-works .directory-project-image:hover::before,
+.directory-page-works .directory-project-image:focus-visible::before { background: transparent; opacity: 0; }
+.directory-page-works .directory-project.works-keyboard-reading { position: relative; top: auto; }
+.directory-page-works .directory-category-empty { min-height: 50svh; }
+@media (max-width: 1180px) {
+  .directory-page-works .directory-results { --works-image-height: calc((100vw - 40px) * 497 / 804); }
+  .directory-page-works .directory-results-title { margin-left: 20px; }
+  .directory-page-works .directory-work-step { min-height: var(--work-step-min-height, calc(100svh + 300px)); }
+  .directory-page-works .directory-project { display: flex; flex-direction: column; gap: 28px; margin-left: 20px; min-height: 0; width: calc(100vw - 40px); }
+  .directory-page-works .directory-project-copy { height: auto; width: min(720px,100%); }
+  .directory-page-works .directory-project-image { width: 100%; }
+}
+@media (max-width: 700px) {
+  .directory-page-works .directory-category { scroll-margin-top: 30px; }
+  .directory-page-works .directory-results-title { margin-bottom: 64px; top: 118px; }
+  .directory-page-works .directory-project-copy { gap: 22px; width: 100%; }
+  .directory-page-works .directory-project-copy h3 { font-size: 26px; line-height: 1.15; }
+  .directory-page-works .directory-project-date,
+  .directory-page-works .directory-project-description { font-size: 14px; line-height: 1.6; }
+  .directory-page-works .directory-project-type { font-size: 17px; line-height: 1.6; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .directory-page-works .directory-project { position: relative; top: auto; }
+  .directory-page-works .directory-work-step { min-height: 0; }
+  .directory-page-works .directory-project-image,
+  .directory-page-works .directory-project-image::before { transition: none; }
+}
+
+/* Keep landscape/short windows readable without a sticky reading strip. */
+@media (max-height: 500px) {
+  .directory-page-works .directory-project { position: relative; top: auto; }
+  .directory-page-works .directory-work-step { min-height: 0; }
+  .directory-page-works .directory-results-title { position: relative; top: auto; }
+}
+
+/* Works-only review candidate: restore the requested actual backdrop inversion.
+   Card text uses the existing body-level ink layer because its sticky/clipped
+   article isolates native descendant blending. Original semantics stay single. */
+.directory-page-works .directory-project-copy > *,
+.directory-page-works .directory-category-index,
+.directory-page-works .directory-results-title,
+.directory-page-works .directory-category-empty {
+  color: #fff;
+  filter: none;
+  mix-blend-mode: difference;
+}
+@supports ((background-clip: text) or (-webkit-background-clip: text)) and (-webkit-text-fill-color: transparent) and (background-attachment: fixed) {
+  @media screen and (hover: hover) and (pointer: fine) and (forced-colors: none) {
+    .directory-page-works .directory-results-title {
+      background-image: linear-gradient(to bottom, rgba(255,255,255,0) var(--fixed-title-clear), #fff var(--fixed-title-full));
+    }
+  }
+}
+/* Preserve the existing explicit accessibility fallback after the screen rule. */
+@media print, (forced-colors: active) {
+  .directory-page-works .directory-results-title {
+    color: CanvasText;
+    mix-blend-mode: normal;
+  }
+}
+
+.directory-page-works .directory-background-cache {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.directory-page-works .directory-background-cache[data-ready="true"] { display: block; }
+
+/* Small works remain a direct, uncropped gallery rather than project stages. */
+.directory-page-works .directory-category-gallery { scroll-margin-top: 104px; }
+.directory-page-works .directory-category-gallery .directory-results-title {
+  max-width: calc(100% - 40px);
+}
+.directory-illustration-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+  margin: 0 clamp(20px, 7.1vw, 102.252px);
+}
+.directory-illustration-item { margin: 0; min-width: 0; }
+.directory-illustration-item:nth-child(1) { grid-column: 1; grid-row: 1; }
+.directory-illustration-item:nth-child(2) { grid-column: 1; grid-row: 2; }
+.directory-illustration-item:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; }
+.directory-illustration-image { display: block; width: 100%; height: auto; object-fit: contain; position: relative; z-index: 5; }
+/* Keep the approved black ink at .585; map the source-white star to .45
+   so the ring appears lighter on the thumbnail's light backdrop. */
+.directory-small-work-starlight .directory-illustration-image {
+  filter: grayscale(1) invert(1) contrast(.130434782609) brightness(1.035);
+  mix-blend-mode: difference;
+}
+/* The modal has a black backdrop: reverse only its source-tone mapping,
+   retaining the same .585 black lettering and a darker .45 star ring. */
+.project-image-dialog-image[src*="/small-works/starlight-weather-logo.png"] {
+  filter: grayscale(1) invert(1) contrast(.130434782609) brightness(1.035);
+  mix-blend-mode: difference;
+}
+.directory-small-works-gallery .directory-small-work-starlight { grid-column: 2; grid-row: 1; }
+.directory-page-works .directory-project-sn .directory-project-image { aspect-ratio: 3 / 2; background: #eef1f3; filter: grayscale(1); }
+.directory-page-works .directory-project-sn .directory-project-image img { display: block; height: auto; max-height: none; max-width: none; width: 100%; }
+.directory-page-works .directory-project-sn .directory-project-image:hover,
+.directory-page-works .directory-project-sn .directory-project-image:focus-visible { filter: grayscale(0); }
+@media (max-width: 700px) {
+  .directory-page-works .directory-category-gallery { scroll-margin-top: 124px; }
+  .directory-illustration-gallery { grid-template-columns: minmax(0, 1fr); gap: 24px; margin: 0 20px; }
+  .directory-illustration-item:nth-child(n) { grid-column: auto; grid-row: auto; }
+  .directory-small-works-gallery .directory-small-work-starlight { grid-column: auto; grid-row: auto; }
+}
+
+/* The material study uses the photograph itself, without the logo-card mat. */
+.directory-page-works .directory-project-iro-hyohon .directory-project-image { aspect-ratio: 2048 / 1202; background: transparent; filter: grayscale(1); }
+.directory-page-works .directory-project-iro-hyohon .directory-project-image::before { display: none; }
+.directory-page-works .directory-project-iro-hyohon .directory-project-image img { display: block; width: 100%; height: auto; max-width: none; max-height: none; }
+.directory-page-works .directory-project-iro-hyohon .directory-project-image:hover,
+.directory-page-works .directory-project-iro-hyohon .directory-project-image:focus-visible { background: transparent; filter: grayscale(0); }
+
+/* Both logo canvases share one centered row, including narrow screens. */
+.directory-page-works .directory-small-works-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+}
+.directory-page-works .directory-small-works-gallery .directory-illustration-item {
+  grid-row: 1;
+}
+@media (max-width: 700px) {
+  .directory-page-works .directory-small-works-gallery { gap: 16px; }
+}
+
+/* Reuse Home's initial background and hero mask, including its parallax. */
+.directory-photo-home-background {
+  background: #050505;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transition: opacity 420ms ease;
+  z-index: 2;
+}
+.directory-photo-phase .directory-photo-home-background { opacity: 1; }
+.directory-page-works .directory-photo-mosaic { position: relative; z-index: 5; }
+.directory-page-works #category-illustration { padding-bottom: clamp(64px, 6.67vw, 96px); }
+@media (prefers-reduced-motion: reduce) {
+  .directory-photo-home-background { transition: none; }
+}

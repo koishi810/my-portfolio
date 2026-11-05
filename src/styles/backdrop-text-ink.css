@@ -1,0 +1,66 @@
+/* The outermost fixed paint layer owns blending, so it samples the fully
+   composed page. A normal-blended fixed wrapper would isolate the text again. */
+.backdrop-text-ink-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 21;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+}
+
+.backdrop-text-ink-navigation-fade {
+  --ink-clear: 64px;
+  --ink-full: 92px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--ink-clear), #000 var(--ink-full));
+  mask-image: linear-gradient(to bottom, transparent var(--ink-clear), #000 var(--ink-full));
+}
+
+.backdrop-text-ink-clip,
+.backdrop-text-ink-selection {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Keep currentColor, borders, native hit targets and focus rings on the sole
+   semantic DOM. Only glyph paint moves to the presentational layer. */
+.backdrop-text-ink-source,
+.backdrop-text-ink-source * {
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke-color: transparent !important;
+  text-decoration-color: transparent !important;
+  text-shadow: none !important;
+}
+
+.backdrop-text-ink-source[data-backdrop-text-gradient] {
+  background-image: none !important;
+}
+
+/* The compositor cuts selected glyph rectangles out of its own ink, leaving
+   native selection paint and clipboard text on the original nodes. */
+.backdrop-text-ink-source::selection,
+.backdrop-text-ink-source *::selection {
+  color: HighlightText;
+  -webkit-text-fill-color: HighlightText !important;
+  background: Highlight;
+}
+
+@media (max-width: 700px) {
+  .backdrop-text-ink-navigation-fade {
+    --ink-clear: 72px;
+    --ink-full: 112px;
+  }
+}
+
+@media print, (forced-colors: active) {
+  .backdrop-text-ink-layer { display: none !important; }
+  .backdrop-text-ink-source,
+  .backdrop-text-ink-source * {
+    -webkit-text-fill-color: currentColor !important;
+    -webkit-text-stroke-color: currentColor !important;
+    text-decoration-color: currentColor !important;
+  }
+}

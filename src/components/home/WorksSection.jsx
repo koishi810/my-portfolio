@@ -25,37 +25,56 @@ export default function WorksSection({ sectionRef, viewportHeight }) {
 
   useEffect(() => {
     let frameId = null;
+    const title = sectionRef.current?.querySelector(".portfolio-works-title");
+    const entries = workItemRefs.current.filter(Boolean).map((item) => ({
+      item,
+      image: item.querySelector(".portfolio-work-image"),
+      step: item.closest(".portfolio-work-step"),
+      clipPath: null,
+      appliedClipPath: null,
+    }));
 
     const updateClip = () => {
-      const title = sectionRef.current?.querySelector(".portfolio-works-title");
+      const isStackedLayout = window.innerWidth <= 1180;
+      // Read every image first; a sticky/min-height write must not force the
+      // next card's size read to flush layout again.
+      const sizes = entries.map((entry) => {
+        if (!entry.image) return null;
+        const imageBottom = entry.image.offsetTop + entry.image.offsetHeight;
+        const bottomOffset = isStackedLayout ? 48 : 56;
+        const minTop = isStackedLayout ? 120 : 260;
+        const maxTop = isStackedLayout ? viewportHeight - 120 : 380;
+        const stickyTop = Math.min(Math.max(viewportHeight - imageBottom - bottomOffset, minTop), maxTop);
+        const pauseDistance = Math.max(viewportHeight * 0.82, 620);
+        return { entry, stickyTop: `${stickyTop}px`, minHeight: isStackedLayout ? `${imageBottom + pauseDistance}px` : "" };
+      });
+      sizes.forEach((size) => {
+        if (!size) return;
+        const { entry: { item, step }, stickyTop, minHeight } = size;
+        if (item.style.getPropertyValue("--work-sticky-top") !== stickyTop) {
+          item.style.setProperty("--work-sticky-top", stickyTop);
+        }
+        if (step && step.style.getPropertyValue("--work-step-min-height") !== minHeight) {
+          if (minHeight) step.style.setProperty("--work-step-min-height", minHeight);
+          else step.style.removeProperty("--work-step-min-height");
+        }
+      });
+      // Measure all updated geometry before writing any clipping styles.
       const titleRect = title?.getBoundingClientRect();
       const cutoff = titleRect ? titleRect.bottom + 18 : 0;
-
-      workItemRefs.current.forEach((item) => {
-        if (!item) return;
-
-        const image = item.querySelector(".portfolio-work-image");
-        if (image) {
-          const isStackedLayout = window.innerWidth <= 1180;
-          const imageBottom = image.offsetTop + image.offsetHeight;
-          const bottomOffset = isStackedLayout ? 48 : 56;
-          const minTop = isStackedLayout ? 120 : 260;
-          const maxTop = isStackedLayout ? viewportHeight - 120 : 380;
-          const stickyTop = Math.min(Math.max(viewportHeight - imageBottom - bottomOffset, minTop), maxTop);
-          item.style.setProperty("--work-sticky-top", `${stickyTop}px`);
-
-          const step = item.closest(".portfolio-work-step");
-          if (step && isStackedLayout) {
-            const pauseDistance = Math.max(viewportHeight * 0.82, 620);
-            step.style.setProperty("--work-step-min-height", `${imageBottom + pauseDistance}px`);
-          } else if (step) {
-            step.style.removeProperty("--work-step-min-height");
-          }
-        }
-
+      const clips = entries.map(({ item }) => {
         const rect = item.getBoundingClientRect();
         const clipTop = Math.max(0, Math.min(rect.height, cutoff - rect.top));
-        item.style.clipPath = clipTop > 0 ? `inset(${clipTop}px 0 0 0)` : "inset(0 0 0 0)";
+        return clipTop > 0 ? `inset(${clipTop}px 0 0 0)` : "inset(0 0 0 0)";
+      });
+      entries.forEach((entry, index) => {
+        const clipPath = clips[index];
+        // CSSOM may normalize inset syntax. Remember its stored form, while
+        // still honoring an external keyboard reveal that cleared the clip.
+        if (entry.clipPath === clipPath && entry.item.style.clipPath === entry.appliedClipPath) return;
+        if (entry.item.style.clipPath !== clipPath) entry.item.style.clipPath = clipPath;
+        entry.clipPath = clipPath;
+        entry.appliedClipPath = entry.item.style.clipPath;
       });
 
       frameId = window.requestAnimationFrame(updateClip);

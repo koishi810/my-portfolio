@@ -8,6 +8,18 @@
   position: relative;
 }
 
+.koko-footer {
+  color: #fff;
+  mix-blend-mode: difference;
+  padding: 96px 24px 120px;
+  position: relative;
+  text-align: center;
+  z-index: 10;
+}
+.koko-back-link { color: inherit; font-family: "Noto Sans JP", system-ui, sans-serif; font-size: 14px; text-decoration: none; }
+.koko-back-link:focus-visible { outline: 1px solid currentColor; outline-offset: 7px; }
+@media (max-width: 700px) { .koko-footer { padding: 64px 24px 72px; } }
+
 .koko-horizontal-section {
   position: relative;
 }
@@ -383,5 +395,84 @@
 @media (max-width: 920px) {
   .koko-version-box {
     display: none;
+  }
+}
+
+/* The original desktop composition stays fixed; narrow screens retain the
+   horizontal reading order with wider text slots and unchanged image ratios. */
+@media (max-width: 920px) {
+  .koko-main-copy {
+    --koko-readable-normal-bottom: calc(24px / var(--koko-stage-scale) - 55.55px);
+    gap: calc(clamp(6px, 15svh - 36px, 12px) / var(--koko-stage-scale));
+    top: auto;
+    white-space: normal;
+    width: var(--koko-readable-main-width);
+  }
+
+  .koko-main-copy h1 {
+    font-size: calc(clamp(16px, 10svh - 12px, 20px) / var(--koko-stage-scale));
+    line-height: 1.2;
+  }
+
+  .koko-main-copy h1 > span:last-child {
+    word-break: keep-all;
+  }
+
+  .koko-date,
+  .koko-type {
+    font-size: calc(12px / var(--koko-stage-scale));
+    line-height: 1.4;
+  }
+
+  .koko-project-intro {
+    --koko-readable-normal-bottom: calc(var(--koko-info-bottom) - 21px);
+    height: auto;
+    left: var(--koko-readable-intro-left);
+    white-space: normal;
+    width: var(--koko-readable-width);
+  }
+
+  .koko-project-intro p {
+    margin-bottom: calc(clamp(8px, 6.666667svh - 18.666667px, 16px) / var(--koko-stage-scale));
+  }
+
+  .koko-project-intro p:last-child {
+    margin-bottom: 0;
+  }
+
+  .koko-metadata {
+    --koko-readable-normal-bottom: var(--koko-info-bottom);
+    gap: calc(clamp(4px, 6.666667svh - 22.666667px, 12px) / var(--koko-stage-scale)) calc(14px / var(--koko-stage-scale));
+    height: auto;
+    width: var(--koko-readable-width);
+  }
+
+  .koko-metadata dt,
+  .koko-metadata dd,
+  .koko-project-intro {
+    font-size: calc(clamp(12px, 5svh - 2px, 14px) / var(--koko-stage-scale));
+    line-height: 1.4;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .koko-metadata-row:nth-child(4) dd,
+  .koko-metadata-row:nth-child(6) dd {
+    width: auto;
+  }
+
+  .koko-metadata-row:nth-child(5) {
+    display: none;
+  }
+
+  /* Move only text towards the visible bottom as height becomes constrained.
+     This is continuous and does not change the animation's stable-height lock. */
+  .koko-main-copy,
+  .koko-metadata,
+  .koko-project-intro {
+    bottom: max(
+      calc((905px - 100svh / var(--koko-stage-scale)) / 2 + 16px / var(--koko-stage-scale)),
+      calc(var(--koko-readable-normal-bottom) - max(0px, 600px - 100svh) / var(--koko-stage-scale))
+    );
   }
 }

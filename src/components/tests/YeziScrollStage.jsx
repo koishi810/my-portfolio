@@ -1,3 +1,4 @@
+import { portfolioUpdateNotice, portfolioVersionLabel } from "../../data/siteMeta.js";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 
 const yeziSequence = {
@@ -19,7 +20,7 @@ export default function YeziScrollStage() {
           />
           <div className="yezi-mask"></div>
           <div className="yezi-version-box">
-            <span>2026.06.09 更新しました　2026.06.09 更新しました　</span>
+            <span>{`${portfolioUpdateNotice}　${portfolioUpdateNotice}　`}</span>
           </div>
           <ScrollImageSequence
             {...yeziSequence}
@@ -39,7 +40,7 @@ export default function YeziScrollStage() {
             </div>
           </div>
 
-          <p className="yezi-version">Portfolio ver0.1</p>
+          <p className="yezi-version">{portfolioVersionLabel}</p>
           <nav className="yezi-nav" aria-label="Test navigation">
             <span>TOP</span>
             <span>WORK</span>

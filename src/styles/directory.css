@@ -1,0 +1,578 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;600;700&family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@200;400;700;900&display=swap");
+
+/* Every selector is scoped to the new pages. Home/detail styles stay intact. */
+.directory-page {
+  background: #050505;
+  color: #e6e6e6;
+  font-family: "Noto Serif JP", Georgia, serif;
+  min-height: 100svh;
+  overflow-x: clip;
+  position: relative;
+}
+
+.directory-background {
+  height: 114svh;
+  left: -4vw;
+  overflow: hidden;
+  pointer-events: none;
+  position: fixed;
+  top: -7svh;
+  transform: translate3d(var(--directory-bg-x, 0px), var(--directory-bg-y, 0px), 0);
+  width: 108vw;
+  z-index: 0;
+}
+
+.directory-background img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.directory-page-works .directory-background {
+  height: 115.879svh;
+  left: -4.56vw;
+  top: -12.2svh;
+  width: 109.226vw;
+}
+.directory-page-about .directory-background {
+  height: 130.113svh;
+  left: 0;
+  top: -15.33svh;
+  width: 122.595vw;
+}
+
+.directory-mask {
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 2;
+}
+
+.directory-page-works .directory-mask {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background: rgba(202, 202, 202, 0.7);
+}
+
+.directory-page-works .directory-mask-inversion {
+  background: rgba(255, 255, 255, 0.7);
+  mix-blend-mode: exclusion;
+  z-index: 1;
+}
+
+.directory-page-about .directory-mask {
+  -webkit-backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.directory-chrome {
+  color: #d9d9d9;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: difference;
+  position: fixed;
+  z-index: 30;
+}
+
+.directory-version {
+  left: 50.752px;
+  position: fixed;
+  top: 35.522px;
+  white-space: nowrap;
+}
+
+.directory-version-box {
+  height: 38px;
+  left: 195px;
+  max-width: 454px;
+  overflow: hidden;
+  position: fixed;
+  right: 430px;
+  top: 25px;
+}
+
+.directory-version-box span {
+  animation: directory-version-scroll 14s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+
+.directory-nav {
+  display: flex;
+  gap: 38px;
+  position: fixed;
+  right: 57px;
+  top: 35.522px;
+}
+
+.directory-nav a { white-space: nowrap; }
+
+.directory-page a:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+
+/* Keep the keyboard ring inside the mask's paint bounds. */
+.directory-category-index > a:focus-visible,
+.directory-page .directory-project-image:focus-visible {
+  outline-offset: -1px;
+}
+
+/* Keep the keyboard ring; only a pointer-initiated cover visit suppresses it. */
+.directory-page-works .directory-project-image[data-pointer-focus="true"]:focus-visible {
+  outline: none;
+}
+
+.directory-intro {
+  min-height: max(905px, 100svh);
+  padding: 94.314px clamp(24px, 7.1vw, 102.252px) 80px;
+  position: relative;
+}
+
+.directory-title,
+.directory-results-title {
+  font-family: "Cormorant Infant", Georgia, serif;
+  font-size: 100px;
+  font-weight: 600;
+  letter-spacing: -5px;
+  line-height: 1.18;
+  margin: 0;
+}
+
+.directory-title {
+  /* Match the home Works heading without changing other page text. */
+  font-variant-caps: normal;
+  mix-blend-mode: difference;
+}
+
+.directory-category-index {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 200;
+  gap: 35px;
+  margin-top: 81.686px;
+  mix-blend-mode: difference;
+}
+
+.directory-category-index > a,
+.directory-category-index > span {
+  align-items: baseline;
+  display: flex;
+  gap: 42px;
+  line-height: 1;
+  width: fit-content;
+}
+
+.directory-category-index > a:hover { text-decoration: underline; }
+
+
+.directory-results {
+  background: transparent;
+  padding: 250px 0 160px;
+  position: relative;
+}
+.directory-category { scroll-margin-top: 110px; }
+.directory-category + .directory-category { margin-top: 200px; }
+.directory-category-empty {
+  font-size: 18px;
+  margin: 0 clamp(24px, 8.16vw, 117.5px);
+  line-height: 1.6;
+}
+.directory-results-title:not(#category-title-ui-ux) {
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: 64px;
+  letter-spacing: -2px;
+}
+
+.directory-results-title {
+  margin: 0 57px 83px auto;
+  text-align: right;
+}
+
+.directory-project-list {
+  display: flex;
+  flex-direction: column;
+  gap: 53.5px;
+  margin-left: clamp(24px, 8.16vw, 117.5px);
+}
+
+.directory-project {
+  align-items: start;
+  display: grid;
+  gap: clamp(36px, 6.28vw, 90.5px);
+  grid-template-columns: minmax(0, 428px) minmax(0, 804px);
+  justify-content: space-between;
+  scroll-margin-top: 110px;
+}
+
+.directory-project-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  min-width: 0;
+}
+
+.directory-project-copy p,
+.directory-project-copy h3 { margin: 0; }
+
+.directory-project-date,
+.directory-project-description { font-size: 15px; line-height: 1.6; }
+.directory-project-description { white-space: pre-line; }
+.directory-project-flower-machine .directory-project-description,
+.directory-project-arctic-lab .directory-project-description { font-size: 20px; line-height: 1.6; }
+.directory-project-type { font-size: 20px; line-height: 1.6; }
+
+.directory-project-copy h3 {
+  display: flex;
+  flex-direction: column;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.directory-project-image {
+  align-items: center;
+  aspect-ratio: 804 / 497;
+  background: #888;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  overflow: hidden;
+  transition: background-color 180ms ease, filter 180ms ease;
+  width: 100%;
+}
+
+.directory-project-koko .directory-project-image { background: #505050; }
+.directory-project-koko .directory-project-image img { width: 29.48%; max-width: none; height: auto; }
+
+.directory-project-flower-machine .directory-project-image img {
+  height: 104%;
+  object-fit: cover;
+  width: 104.44%;
+}
+
+.directory-project-arctic-lab .directory-project-image img {
+  object-fit: contain;
+  width: 76.02%;
+}
+
+.directory-project-matryoshka .directory-project-image { aspect-ratio: 2048 / 1365; }
+.directory-project-matryoshka .directory-project-image img { display: block; height: auto; width: 100%; }
+
+.directory-project-image img { filter: grayscale(1); }
+.directory-project-image[href]:hover { background: #fff; }
+/* The transparent ARCTIC logo is white; retain its existing gray backdrop. */
+.directory-project-arctic-lab .directory-project-image[href]:hover { background-color: #888; }
+.directory-project-image[href]:hover img,
+.directory-project-image[href]:focus-visible img { filter: grayscale(0); }
+
+.directory-about-identity {
+  margin-left: calc(53.675vw - clamp(24px, 7.1vw, 102.252px));
+  margin-top: clamp(80px, 8.34vw, 120px);
+  max-width: 595.711px;
+  position: relative;
+  width: calc(100vw - 53.675vw - 6.5vw);
+}
+
+.directory-about-portrait {
+  margin: 0;
+  mix-blend-mode: normal;
+  position: relative;
+  width: 100%;
+  z-index: 5;
+}
+
+.directory-about-portrait img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.directory-about-name {
+  bottom: -0.025em;
+  color: #fff;
+  font-family: "Cormorant Infant", Georgia, serif;
+  font-size: clamp(80px, 8.89vw, 128px);
+  font-weight: 600;
+  left: -47.23%;
+  letter-spacing: -0.05em;
+  line-height: 1.02;
+  margin: 0;
+  mix-blend-mode: difference;
+  position: absolute;
+  z-index: 6;
+}
+
+.directory-about-name-line {
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+}
+
+.directory-about-name-reading {
+  font-family: "Noto Serif JP", Georgia, serif;
+  font-size: clamp(14px, 1.4vw, 20px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
+  padding-left: 0.2em;
+}
+
+.directory-about-history,
+.directory-about-copy {
+  margin-top: 120px;
+  max-width: 760px;
+  min-width: 0;
+  width: 100%;
+}
+
+.directory-about-history h2,
+.directory-about-copy h2 {
+  font-size: 32px;
+  line-height: 1;
+  margin: 0 0 30px;
+}
+
+.directory-about-history p,
+.directory-about-copy p { font-size: 20px; line-height: 1.6; margin: 0 0 1.6em; }
+.directory-about-history p { margin-bottom: 0.5em; white-space: pre-line; }
+/* The first viewport introduces the existing slogan before the profile. */
+.directory-about-intro {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+.directory-about-intro .directory-about-slogan {
+  color: #fff;
+  font-size: clamp(24px, 2.25vw, 32px);
+  line-height: 1.6;
+  margin: auto 0;
+  max-width: 760px;
+  mix-blend-mode: difference;
+  padding: 48px 0;
+  position: relative;
+  z-index: 5;
+}
+.directory-about-profile {
+  padding: 64px clamp(24px, 7.1vw, 102.252px) 80px;
+  position: relative;
+}
+.directory-about-profile .directory-about-identity { margin-top: 0; }
+.directory-about-slogan span { display: inline-block; white-space: nowrap; }
+
+.directory-contact {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 65svh;
+  padding: 100px 24px max(48px, env(safe-area-inset-bottom));
+  position: relative;
+  text-align: center;
+  z-index: 5;
+}
+
+.directory-contact h2 {
+  line-height: 1.18;
+  font-family: "Cormorant Infant", Georgia, serif;
+  font-size: 64px;
+  font-weight: 600;
+  letter-spacing: -3.2px;
+  margin: 0;
+}
+
+.directory-contact > a { font-size: 20px; }
+.directory-contact .directory-return { font-family: "Noto Sans JP", sans-serif; font-size: 12px; margin-top: 48px; }
+.directory-contact small { font-size: 12px; margin-top: 32px; opacity: 0.6; }
+
+/* Blend text with the fixed photograph; section containers stay transparent. */
+.directory-page .directory-title,
+.directory-category-index,
+.directory-results-title,
+.directory-project-copy,
+.directory-category-empty,
+.directory-about-history,
+.directory-about-copy {
+  color: #fff;
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 5;
+}
+.directory-page .directory-contact,
+.directory-page .directory-chrome {
+  color: #fff;
+  mix-blend-mode: difference;
+}
+.directory-project-image { position: relative; z-index: 5; }
+
+/* Each masked layer retains its own blend mode against the page photograph. */
+.directory-fade-layer {
+  /* Masks alone leave invisible links clickable. Clip only the fully clear
+     portion on this same layer: visible fade pixels and blending stay intact. */
+  clip-path: inset(max(0px, var(--directory-fade-clear)) 0 0 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--directory-fade-clear), #000 var(--directory-fade-full));
+  mask-image: linear-gradient(to bottom, transparent var(--directory-fade-clear), #000 var(--directory-fade-full));
+}
+
+@keyframes directory-version-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@media (max-width: 1180px) {
+  .directory-project-list { margin: 0 24px; gap: 88px; }
+  .directory-project { display: flex; flex-direction: column; gap: 32px; }
+  .directory-project-copy { max-width: 720px; }
+  .directory-project-image { width: 100%; }
+}
+
+@media (max-width: 920px) {
+  .directory-version-box { display: none; }
+  .directory-about-identity { margin-left: auto; margin-top: 80px; width: calc(100% - clamp(48px, 10vw, 88px)); }
+  .directory-about-name { font-size: clamp(64px, 11vw, 104px); left: calc(-1 * clamp(48px, 10vw, 88px)); }
+  .directory-about-history, .directory-about-copy { margin-top: 80px; }
+}
+
+@media (max-width: 700px) {
+  .directory-chrome { font-size: 12px; }
+  .directory-version { left: 16px; top: 18px; }
+  .directory-nav { gap: 16px; left: 16px; right: auto; top: 46px; }
+  .directory-intro { min-height: 100svh; padding-top: 118px; }
+  .directory-title, .directory-results-title { font-size: 68px; letter-spacing: -3.4px; }
+  .directory-title { letter-spacing: -5px; }
+  .directory-page-about .directory-title { font-size: clamp(48px, 20vw, 68px); letter-spacing: -5px; }
+  .directory-category-index { font-size: 18px; margin-top: 70px; }
+  .directory-results-title:not(#category-title-ui-ux) { font-size: clamp(26px, 7vw, 42px); letter-spacing: -1px; }
+  .directory-category + .directory-category { margin-top: 110px; }
+  .directory-category-empty { font-size: 16px; }
+  .directory-results { padding: 110px 0 100px; }
+  .directory-results-title { margin: 0 24px 64px; }
+  .directory-project-copy { gap: 22px; }
+  .directory-project-copy h3 { font-size: 26px; line-height: 1.15; }
+  .directory-project-type { font-size: 17px; }
+  .directory-project-date, .directory-project-description { font-size: 14px; }
+
+  .directory-about-history h2,
+  .directory-about-copy h2 { font-size: 28px; }
+  .directory-about-history p,
+  .directory-about-copy p { font-size: 17px; }
+  .directory-about-identity { margin-top: 56px; }
+  .directory-about-history, .directory-about-copy { margin-top: 64px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .directory-version-box span { animation: none; padding-left: 0; }
+  .directory-project-image { transition: none; }
+}
+
+/* Keep non-interactive Works category titles tied to the viewport fade band.
+   Other text, links and images retain their existing mask/hit-test behavior. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) and (-webkit-text-fill-color: transparent) and (background-attachment: fixed) {
+  /* Fine-pointer gating keeps unverified touch/mobile fixed-background behavior
+     on the existing implementation. Narrow desktop windows remain testable. */
+  @media screen and (hover: hover) and (pointer: fine) and (forced-colors: none) {
+    .directory-page-works .directory-results-title {
+      --fixed-title-clear: 64px;
+      --fixed-title-full: 92px;
+      /* White is the current pre-blend fill, not the final visible text color. */
+      color: #fff;
+      mix-blend-mode: difference;
+      background-color: transparent;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) var(--fixed-title-clear), #fff var(--fixed-title-full));
+      background-attachment: fixed;
+      background-position: left top;
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      /* Replacing, not multiplying, the previous fade. These headings have no
+         focusable descendants, so no invisible-link hit region is introduced. */
+      -webkit-mask-image: none;
+      mask-image: none;
+      /* Native selection ignores background-clip text fading. Preserve the
+         fully clear navigation edge without masking the difference paint. */
+      clip-path: inset(max(0px, var(--directory-fade-clear)) 0 0 0);
+    }
+    @media (max-width: 700px) {
+      .directory-page-works .directory-results-title {
+        --fixed-title-clear: 72px;
+        --fixed-title-full: 112px;
+      }
+    }
+  }
+}
+/* Keep text legible when background painting is disabled or colors are forced.
+   This is a proposed fallback without changing the screen layout. */
+@media print, (forced-colors: active) {
+  .directory-page-works .directory-results-title {
+    background-image: none;
+    background-attachment: scroll;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    -webkit-text-fill-color: currentColor;
+    color: CanvasText;
+    mix-blend-mode: normal;
+    -webkit-mask-image: none;
+    mask-image: none;
+    clip-path: none;
+  }
+}
+
+.directory-about-software { margin-top: 96px; max-width: 760px; width: 100%; color: #fff; position: relative; }
+.directory-software-group + .directory-software-group { margin-top: 40px; }
+.directory-software-group h2 { font-size: 24px; line-height: 1.4; margin: 0 0 24px; }
+.directory-software-group ul { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px 28px; }
+.directory-software-group li { display: flex; align-items: center; gap: 12px; font-size: 15px; line-height: 1.5; min-width: 0; }
+.directory-software-group img { flex: 0 0 28px; width: 28px; height: 28px; object-fit: contain; filter: brightness(0) invert(1); }
+@media (max-width: 700px) {
+  .directory-about-software { margin-top: 64px; }
+  .directory-software-group ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
+  .directory-software-group li { font-size: 14px; gap: 10px; }
+}
+
+.directory-software-credit { font-size: 11px; line-height: 1.5; margin: 28px 0 0; }
+.directory-software-credit a { color: inherit; }
+
+.directory-small-works-gallery figcaption h3 { font-size: 18px; line-height: 1.5; font-weight: 400; margin: 0 0 8px; }
+
+.directory-software-icon { flex: 0 0 28px; width: 28px; height: 28px; }
+.directory-software-detail { display: flex; flex-direction: column; min-width: 0; flex: 1; gap: 8px; overflow-wrap: anywhere; }
+.directory-software-level { display: block; width: 100%; max-width: 120px; height: 2px; background: rgb(255 255 255 / 22%); }
+.directory-software-level > span { display: block; height: 100%; background: currentColor; }
+
+.directory-page-works .directory-small-works-gallery { margin-top: 72px; }
+.directory-small-works-gallery figcaption { color: #fff; mix-blend-mode: difference; position: relative; z-index: 5; margin-top: 20px; }
+.directory-small-work-ink .directory-illustration-image { filter: invert(1) brightness(.8); mix-blend-mode: difference; object-fit: contain; }
+.directory-small-work-ink { background: transparent; }
+
+/* Compact rectangular mosaic. Original files remain untouched in fullscreen. */
+.directory-photo-mosaic { --photo-gap: 6px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--photo-gap); width: 78%; max-width: 1100px; margin: 0 auto; }
+.directory-photo-group { display: grid; grid-template-columns: 8fr 9fr; grid-template-rows: repeat(2, minmax(0, 1fr)); gap: var(--photo-gap); aspect-ratio: 17 / 12; min-width: 0; }
+.directory-photo-record { margin: 0; min-width: 0; min-height: 0; overflow: hidden; position: relative; }
+.directory-photo-record:first-child { grid-column: 1; grid-row: 1 / 3; }
+.directory-photo-record:nth-child(2) { grid-column: 2; grid-row: 1; }
+.directory-photo-record:nth-child(3) { grid-column: 2; grid-row: 2; }
+.directory-photo-record img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.directory-photo-reversed { grid-template-columns: 9fr 8fr; }
+.directory-photo-reversed .directory-photo-record:first-child { grid-column: 2; }
+.directory-photo-reversed .directory-photo-record:nth-child(n+2) { grid-column: 1; }
+.directory-photo-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.directory-photo-pair .directory-photo-record { grid-row: 1 / 3; }
+@media (max-width: 700px) {
+  .directory-photo-mosaic { --photo-gap: 4px; grid-template-columns: minmax(0, 1fr); width: calc(100% - 40px); }
+}
+
+.directory-software-group h2, .directory-software-detail { mix-blend-mode: difference; position: relative; z-index: 5; }
+.directory-software-icon { position: relative; z-index: 5; mix-blend-mode: difference; }
+/* Preserve the official Procreate brush as a luminance silhouette, removing
+   its dark app tile without altering the original PNG. All icons share the
+   same 28px box and difference blending. */
+.directory-software-icon-brush img { filter: url(#software-brush-monochrome); }

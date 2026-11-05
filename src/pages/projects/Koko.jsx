@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import PortfolioChrome from "../../components/PortfolioChrome.jsx";
-import { mix, useScrollProgress, useStageMetrics } from "../../hooks/useScrollProgress.js";
+import FullscreenImage from "../../components/projects/FullscreenImage.jsx";
+import useLegacyDetailNavigationFade from "../../hooks/useLegacyDetailNavigationFade.js";
+import { mixPointerPosition, useScrollProgress, useStageMetrics } from "../../hooks/useScrollProgress.js";
 import "../../styles/koko-project.css";
 
 const DESIGN_WIDTH = 1440;
@@ -22,7 +24,7 @@ const coverPage = {
 };
 
 const metadata = [
-  ["制作形式", "グループ課題制作"],
+  ["制作形式", "個人制作"],
   ["制作時期", "2年　後期"],
   ["制作期間", "2ヶ月"],
   ["使用ツール", "Figma\nIllustrator / Photoshop\nHTML / CSS / JS\nMapLibre GL / Supabase"],
@@ -40,7 +42,7 @@ const imagePages = Array.from({ length: IMAGE_END_PAGE - IMAGE_START_PAGE + 1 },
   };
 });
 
-function usePointerParallax(ref) {
+function usePointerParallax(ref, navigationRef) {
   useEffect(() => {
     let frameId = null;
     const current = { x: 0, y: 0 };
@@ -51,29 +53,42 @@ function usePointerParallax(ref) {
       const halfHeight = window.innerHeight / 2 || 1;
       target.x = ((event.clientX - halfWidth) / halfWidth) * 7;
       target.y = ((event.clientY - halfHeight) / halfHeight) * 3;
+      schedule();
     };
 
     const resetTarget = () => {
       target.x = 0;
       target.y = 0;
+      schedule();
     };
 
     const tick = () => {
-      current.x = mix(current.x, target.x, 0.075);
-      current.y = mix(current.y, target.y, 0.075);
+      frameId = null;
+      const previousX = current.x;
+      const previousY = current.y;
+      current.x = mixPointerPosition(current.x, target.x, 0.075);
+      current.y = mixPointerPosition(current.y, target.y, 0.075);
 
-      if (ref.current) {
-        ref.current.style.setProperty("--koko-bg-x", `${current.x}px`);
-        ref.current.style.setProperty("--koko-bg-y", `${current.y}px`);
+      const backgrounds = [ref.current, navigationRef.current];
+      const x = `${current.x}px`;
+      const y = `${current.y}px`;
+      for (const background of backgrounds) {
+        if (!background) continue;
+        if (background.style.getPropertyValue("--koko-bg-x") !== x) background.style.setProperty("--koko-bg-x", x);
+        if (background.style.getPropertyValue("--koko-bg-y") !== y) background.style.setProperty("--koko-bg-y", y);
       }
 
-      frameId = window.requestAnimationFrame(tick);
+      // Stop after the subpixel terminal snap; new pointer input schedules again.
+      if (backgrounds.some(background => !background) || current.x !== previousX || current.y !== previousY) schedule();
+    };
+    const schedule = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(tick);
     };
 
     window.addEventListener("pointermove", updateTarget);
     window.addEventListener("pointerleave", resetTarget);
     window.addEventListener("blur", resetTarget);
-    frameId = window.requestAnimationFrame(tick);
+    schedule();
 
     return () => {
       window.removeEventListener("pointermove", updateTarget);
@@ -81,7 +96,7 @@ function usePointerParallax(ref) {
       window.removeEventListener("blur", resetTarget);
       if (frameId !== null) window.cancelAnimationFrame(frameId);
     };
-  }, [ref]);
+  }, [ref, navigationRef]);
 }
 
 function KokoChrome() {
@@ -106,6 +121,16 @@ function KokoImageCrop({ className = "" }) {
   );
 }
 
+function KokoBackground({ backgroundRef }) {
+  return (
+    <div className="koko-fixed-background" ref={backgroundRef} aria-hidden="true">
+      <KokoImageCrop />
+      <div className="koko-mask koko-mask-exclusion" />
+      <div className="koko-mask koko-mask-light" />
+    </div>
+  );
+}
+
 function KokoMetadata() {
   return (
     <dl className="koko-metadata">
@@ -119,17 +144,30 @@ function KokoMetadata() {
   );
 }
 
+function revealKeyboardReadingImage(event) {
+  const image = event.currentTarget;
+  if ((event.type !== "keydown" && !image.matches(":focus-visible")) || event.relatedTarget?.closest(".project-image-dialog")) return;
+  const bounds = image.getBoundingClientRect();
+  const clearTop = Math.min(window.innerHeight / 3, window.innerWidth <= 700 ? 112 : 104);
+  const availableHeight = window.innerHeight - clearTop;
+  const top = window.scrollY + bounds.top - clearTop - Math.max((availableHeight - bounds.height) / 2, 0);
+  // Native Tab inherits the global smooth-scroll rule. Finish keyboard focus
+  // positioning before Enter can open a still off-screen reading image.
+  window.scrollTo({ left: window.scrollX, top, behavior: "instant" });
+}
+
 function KokoImageReadingSection() {
   return (
     <section className="koko-image-reading-section" aria-label="KOKO UI portfolio pages">
       <div className="koko-image-page-list">
         {imagePages.map((page, index) => (
           <article className="koko-work-page-frame koko-image-page" key={page.id}>
-            <img
+            <FullscreenImage
               alt={`KOKO UI page ${page.number}`}
               decoding="async"
               fetchPriority={index < 2 ? "high" : "auto"}
               loading={index < 2 ? "eager" : "lazy"}
+              onFocus={revealKeyboardReadingImage} onKeyboardReveal={revealKeyboardReadingImage}
               src={page.src}
             />
           </article>
@@ -140,12 +178,15 @@ function KokoImageReadingSection() {
 }
 
 export default function Koko() {
+  const pageRef = useLegacyDetailNavigationFade("koko");
   const sectionRef = useRef(null);
+  const keyboardScrollSnapRef = useRef(null);
   const backgroundRef = useRef(null);
+  const navigationBackgroundRef = useRef(null);
   const { scale, viewportHeight, viewportWidth } = useStageMetrics(DESIGN_WIDTH, DESIGN_HEIGHT);
-  const progress = useScrollProgress(sectionRef, { easing: 0.09, smooth: true, viewportHeight });
+  const progress = useScrollProgress(sectionRef, { easing: 0.09, smooth: true, viewportHeight, snapRef: keyboardScrollSnapRef });
 
-  usePointerParallax(backgroundRef);
+  usePointerParallax(backgroundRef, navigationBackgroundRef);
 
   const safeScale = Math.max(scale, 0.0001);
   const pageFrameViewportWidth = Math.min(viewportWidth, viewportHeight * (PAGE_ASPECT_WIDTH / PAGE_ASPECT_HEIGHT));
@@ -156,7 +197,14 @@ export default function Koko() {
   const pageFrameBottom = pageFrameTop + pageFrameDesignHeight;
   const infoBottom = Math.max(DESIGN_HEIGHT - pageFrameBottom + 74, 48);
   const pageFrameViewportLeft = Math.max((viewportWidth - pageFrameViewportWidth) / 2, 0);
-  const pageFrameDesignLeft = HORIZONTAL_IMAGE_LEFT;
+  // Keep the same horizontal sequence, but give narrow-screen text a readable slot.
+  const readableNarrow = viewportWidth <= 920;
+  const readableWidth = Math.min(Math.max(viewportWidth - 48, 240), 480) / safeScale;
+  const readableIntroLeft = 1896 + readableWidth + 48 / safeScale;
+  const readableMainWidth = Math.max((644.42 - 109.92) * safeScale - 16, 88) / safeScale;
+  const pageFrameDesignLeft = readableNarrow
+    ? readableIntroLeft + readableWidth + 48 / safeScale
+    : HORIZONTAL_IMAGE_LEFT;
   const trackDesignWidth = pageFrameDesignLeft + pageFrameDesignWidth + pageFrameViewportLeft / safeScale;
   const trackWidth = trackDesignWidth * scale;
   const maxTranslate = Math.max(trackWidth - viewportWidth, 0);
@@ -165,16 +213,31 @@ export default function Koko() {
   const scrollDistance = maxTranslate + TEXT_GROUP_WIDTH_FOR_SCROLL * scale;
   const scrollHeight = viewportHeight + scrollDistance * 1.34 + viewportHeight * 0.45;
 
+  const revealKeyboardCover = (event) => {
+    const image = event.currentTarget;
+    if ((event.type !== "keydown" && !image.matches(":focus-visible")) || event.relatedTarget?.closest(".project-image-dialog")) return;
+    const section = sectionRef.current;
+    const stage = image.closest(".koko-sticky-stage");
+    if (!section || !stage) return;
+
+    // Native focus can scroll an overflow-hidden horizontal stage. Keep the
+    // stage unscrolled and reveal the cover through its existing vertical map.
+    stage.scrollLeft = 0;
+    const bounds = section.getBoundingClientRect();
+    const top = window.scrollY + bounds.top + HORIZONTAL_MOVE_END * Math.max(bounds.height - viewportHeight, 1);
+    window.scrollTo({ left: window.scrollX, top, behavior: "instant" });
+    keyboardScrollSnapRef.current?.();
+  };
+
   return (
-    <main className="koko-project-page">
-      <div className="koko-fixed-background" ref={backgroundRef} aria-hidden="true">
-        <KokoImageCrop />
-        <div className="koko-mask koko-mask-exclusion" />
-        <div className="koko-mask koko-mask-light" />
+    <main className="koko-project-page" ref={pageRef}>
+      <KokoBackground backgroundRef={backgroundRef} />
+      <div className="koko-navigation-fade" aria-hidden="true">
+        <KokoBackground backgroundRef={navigationBackgroundRef} />
       </div>
       <KokoChrome />
 
-      <section className="koko-horizontal-section" ref={sectionRef} style={{ height: `${scrollHeight}px` }}>
+      <section className="koko-horizontal-section" data-fullscreen-scroll-scene data-fullscreen-viewport-height={viewportHeight} ref={sectionRef} style={{ height: `${scrollHeight}px` }}>
         <div className="koko-sticky-stage">
           <div
             className="koko-design-shell"
@@ -187,6 +250,10 @@ export default function Koko() {
             <div
               className="koko-design-stage"
               style={{
+                "--koko-stage-scale": safeScale,
+                "--koko-readable-width": `${readableWidth}px`,
+                "--koko-readable-intro-left": `${readableIntroLeft}px`,
+                "--koko-readable-main-width": `${readableMainWidth}px`,
                 "--koko-info-bottom": `${infoBottom}px`,
                 "--koko-page-left": `${pageFrameDesignLeft}px`,
                 transform: `scale(${scale})`,
@@ -201,7 +268,7 @@ export default function Koko() {
                 <p className="koko-date">2026.5</p>
                 <h1>
                   <span>KOKO</span>
-                  <span>身体感覚を記録する地図</span>
+                  <span>身体感覚を<wbr />記録する<wbr />地図</span>
                 </h1>
                 <p className="koko-type">UI/UX / Interaction Prototype</p>
               </div>
@@ -226,13 +293,16 @@ export default function Koko() {
                   width: `${pageFrameDesignWidth}px`,
                 }}
               >
-                <img alt={`KOKO UI page ${coverPage.number}`} src={coverPage.src} />
+                <FullscreenImage alt={`KOKO UI page ${coverPage.number}`} onFocus={revealKeyboardCover} onKeyboardReveal={revealKeyboardCover} src={coverPage.src} />
               </div>
             </div>
           </div>
         </div>
       </section>
       <KokoImageReadingSection />
+      <footer className="koko-footer">
+        <a className="koko-back-link" href="/works#category-ui-ux">ALL WORKS ↗</a>
+      </footer>
     </main>
   );
 }

@@ -1,3 +1,4 @@
+import { portfolioUpdateNotice, portfolioVersionLabel } from "../../data/siteMeta.js";
 import { useEffect, useRef, useState } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 
@@ -168,9 +169,9 @@ function SharedMask({ aboutProgress }) {
 function SharedChrome() {
   return (
     <div className="home-flow-chrome">
-      <p className="home-flow-version">Portfolio ver0.1</p>
+      <p className="home-flow-version">{portfolioVersionLabel}</p>
       <div className="home-flow-version-box">
-        <span>2026.06.09 更新しました　2026.06.09 更新しました　</span>
+        <span>{`${portfolioUpdateNotice}　${portfolioUpdateNotice}　`}</span>
       </div>
       <nav className="home-flow-nav" aria-label="Test navigation">
         <span>TOP</span>

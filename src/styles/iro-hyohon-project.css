@@ -1,0 +1,10 @@
+.iro-hyohon-study > .matryoshka-heading { margin-bottom: 28px; }
+.iro-hyohon-study h2 { font-size: 24px; font-weight: 400; }
+.iro-hyohon-image-label { color: #e6e6e6; mix-blend-mode: difference; position: relative; z-index: 5; font-size: 13px; margin: 0 0 14px; }
+.iro-hyohon-comparison { align-items: start; }
+.iro-hyohon-detail { grid-column: 1 / -1; max-width: 760px; width: 100%; margin: 12px auto 0; }
+.iro-hyohon-comparison > div { min-width: 0; }
+.iro-hyohon-process-copy { max-width: 760px; margin-bottom: 32px; }
+.iro-hyohon-process-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 700px) { .iro-hyohon-process-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 700px) { .iro-hyohon-study h2 { font-size: 22px; } .iro-hyohon-study > .matryoshka-heading { margin-bottom: 22px; } }

@@ -52,8 +52,12 @@ Vercel 会自动重新部署。
 ## 页面结构
 
 - `/`：首页，当前主要实现页面。
-- `/works`：作品总览占位页。
-- `/about`：About 占位页。
+- `/works`：作品目录，分类索引和当前四项作品（首页精选保留三项）。
+- `/about`：个人页，使用已确认的自我介绍及联系方式。
+- `/works/koko`：正式 KOKO 详情及 14 页作品图。
+- `/works/flower-machine`：正式花朵机器详情、展示视频及生成规则。
+- `/works/arctic-lab`：ARCTICLAB 系列详情、已确认元信息、「迴声-Narcissus」专辑介绍、四幅原比例展示（含两张并列实拍）及月面高斯模糊背景。系列首屏横向，专辑介绍起纵向阅读。
+- `/works/matryoshka`：「マッチ」マトリョーシカ课题页，2026，选定封面及六张成图按原比例彩色展示，六图按全景、单体细节、错落群像与楼梯场景编排；背景使用与封面原背景一致的中性浅灰 #d5dcdc，保留差分文字，前景作品原色不变；桌面首屏保持左右列和字体，仅上移内容组以平衡留白。Works 归入「その他」，卡片默认黑白，hover / 键盘 focus 恢复原色。未确认的介绍、职责、技法和摄影署名暂不增写。
 - `/works/world-skin`：作品详情模板占位页。
 - `/works/sn`：作品详情模板占位页。
 - `/works/emotion-bloom`：作品详情模板占位页。
@@ -75,8 +79,8 @@ Vercel 会自动重新部署。
 
 顶栏内容：
 
-- 左上：`Portfolio ver0.1`
-- 中上：`2026.06.09 更新しました`
+- 左上：`Portfolio ver0.2`
+- 中上：`作品の更新とページの追加・整備を行いました。`
 - 右上：`TOP / WORKS / ABOUT ME / CONTACT`
 
 ## 交互原则
@@ -135,7 +139,7 @@ About section 滚动测试页。
 ## 资源
 
 - 首页背景：`public/assets/test/about-scroll/bg.png`
-- Hero 叶片：`public/assets/home/hero-leaf.png`
+- Hero 叶片：`public/assets/sequences/yezi/`，48 帧 PNG 序列
 - Works 图像：`public/assets/home/`
 - About 石头序列：`public/assets/sequences/shitou/`
 - yezi 测试序列：`public/assets/sequences/yezi/`
@@ -147,3 +151,23 @@ About section 滚动测试页。
 - 不使用 GSAP。
 - 不把测试页改成正式页面。
 - 不删除 `/test/yezi-scroll` 和 `/test/home-flow`，它们用于记录已经验证过的交互原型。
+
+## 作品目录与个人页
+
+- Figma：`nXqj46MP1HFN9UU3alWTGK`；Works `278:1830`，About `352:8`。
+- `src/components/directory/`：新页面共享背景、导航、联系区及作品行。
+- `src/data/workDirectory.js`：复用 `projects.js` 的事实与文案，仅配置目录图像和入口。
+- `src/data/profile.js`：从现存 Yezi 原型提取的自我介绍。
+- `src/styles/directory.css`：所有选择器限定在目录页面，不修改首页或作品详情样式。
+- `PortfolioChrome` 新增可选导航配置；不传配置的既有页面保持原来的链接。
+- 分类索引定位到相应作品；「その他」收录已确认的マトリョーシカ课题；照片/记录尚无已确认内容，所以不创建虚构项目。
+- ARCTIC LAB 目录和首页卡片进入 `/works/arctic-lab`；详情图片及背景配置在 `src/data/arcticLab.js`，新增文案由作者补充。
+- 新资源位于 `public/assets/directory/`；保留 Figma 原始资源，不使用临时 URL。
+- 当前仓库没有 lint、类型检查或单元测试脚本；可用检查是构建、静态引用和实际浏览器验证。
+
+## マッチ图片
+
+- 网页使用`public/assets/projects/matryoshka/`内的轻量副本；封面637KB，六张照片约0.58–1.03MB。
+- 六张照片保留4000px长边与原始方向，不裁切；已小于约1MB的4张不重复压缩，另2张使用优化渐进JPEG。
+- 图片延迟加载，预留原始宽高比；图组在手机上转为单列。
+- 原始20MB以上照片不放入网站，Mac原图不修改。

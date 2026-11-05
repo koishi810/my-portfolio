@@ -1,0 +1,43 @@
+Software icons identify the applications used; no endorsement is implied.
+
+Photoshop, Illustrator, Processing: Devicon (MIT).
+https://github.com/devicons/devicon
+Full license: DEVICON-LICENSE.txt
+
+Blender, Figma, Rhinoceros, Gemini, Godot Engine: Simple Icons (CC0 collection).
+https://github.com/simple-icons/simple-icons
+Full license: SIMPLE-ICONS-LICENSE.txt
+Brands retain their trademarks and separate rights.
+
+Godot Engine logo: Godot Engine contributors, CC BY 4.0.
+https://godotengine.org/press/
+https://creativecommons.org/licenses/by/4.0/
+Source supplied by Simple Icons; shown in monochrome by CSS, proportions retained.
+
+OpenAI blossom used to identify ChatGPT: official OpenAI Logos 2025 bundle.
+https://cdn.openai.com/brand/OpenAI-Logos-2025.zip
+https://openai.com/brand/
+Original SVG paths retained. Icons are scaled proportionally and displayed monochrome.
+
+Additional application identifiers (original artwork/colors retained):
+Procreate: Savage Interactive Pty Ltd, official app icon from
+https://assets.procreate.art/brand/Procreate-Logo-Assets.zip
+Guidance: https://procreate.com/brand-use
+Adobe Lightroom, Premiere Pro, After Effects: Adobe product icons from
+https://www.adobe.com/cc-shared/assets/img/product-icons/svg/lightroom.svg
+https://www.adobe.com/cc-shared/assets/img/product-icons/svg/premiere-pro.svg
+https://www.adobe.com/cc-shared/assets/img/product-icons/svg/after-effects.svg
+Guidance: https://www.adobe.com/legal/permissions/icons-web-logos.html
+These identify software used by the portfolio author. No affiliation,
+partnership, certification, endorsement, or express trademark license is claimed.
+
+2026-10-15 monochrome display update:
+Premiere Pro / After Effects: Devicon plain SVGs, MIT; original paths retained.
+https://raw.githubusercontent.com/devicons/devicon/master/icons/premierepro/premierepro-plain.svg
+https://raw.githubusercontent.com/devicons/devicon/master/icons/aftereffects/aftereffects-plain.svg
+Lightroom: Simple Icons 13.21.0 (historical collection release, CC0).
+https://raw.githubusercontent.com/simple-icons/simple-icons/13.21.0/icons/adobelightroom.svg
+The earlier official Adobe color assets remain archived in this directory.
+Procreate's original official PNG remains intact; a page-only SVG luminance
+filter displays its brush in monochrome with the dark tile transparent.
+This is a mixed-source collection with consistent display, not one icon library.

@@ -1,0 +1,126 @@
+.project-image-trigger {
+  cursor: zoom-in;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.project-image-trigger:focus-visible,
+.flower-project-page img.project-image-trigger:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Outrank the detail-page fade focus rules only for a pointer focus return. */
+img.project-image-trigger[data-pointer-focus="true"]:focus:focus-visible {
+  outline: none;
+}
+
+.project-image-dialog {
+  background: rgba(0, 0, 0, 0.97);
+  border: 0;
+  color: #fff;
+  height: 100dvh;
+  inset: 0;
+  margin: 0;
+  max-height: none;
+  max-width: none;
+  outline: none;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  padding: max(64px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+  position: fixed;
+  width: 100%;
+}
+
+.project-image-dialog::backdrop {
+  background: transparent;
+}
+
+.project-image-dialog-image {
+  animation: project-image-open 180ms ease-out;
+  display: block;
+  filter: none;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+@keyframes project-image-open {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-image-dialog-image {
+    animation: none;
+  }
+}
+
+.project-image-dialog-close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+  font: 32px / 1 sans-serif;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: max(24px, env(safe-area-inset-right));
+  top: max(12px, env(safe-area-inset-top));
+  width: 44px;
+}
+
+.project-image-dialog-close:focus-visible {
+  outline: none;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.75);
+}
+
+/* Only transparent GIF margins are trimmed, keeping the navigation fade. */
+.flower-project-page .flower-weather-sun.project-image-trigger {
+  clip-path: inset(max(2%, var(--legacy-fade-clear, 0px)) 10% 9% 27.5%);
+}
+
+.flower-project-page .flower-weather-cloud.project-image-trigger {
+  clip-path: inset(max(35%, var(--legacy-fade-clear, 0px)) 30% 7% 5%);
+}
+
+.flower-project-page .flower-weather-thunder.project-image-trigger {
+  clip-path: inset(max(5%, var(--legacy-fade-clear, 0px)) 46% 46% 40.5%);
+}
+
+.flower-weather-cluster .project-image-trigger:focus-visible:not([data-pointer-focus="true"]) {
+  filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 3px #111);
+}
+
+@media (max-width: 700px) {
+  .project-image-dialog {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+
+  .project-image-dialog-close {
+    right: max(12px, env(safe-area-inset-right));
+  }
+}
+
+/* Error states remain usable without changing the normal image layout. */
+.project-image-dialog-image[hidden] { display: none; }
+.project-image-dialog-failure { height: 100%; position: relative; width: 100%; }
+.project-media-error { background: rgba(24, 24, 24, .93); color: #fff; font: 14px/1.6 sans-serif; padding: 16px; text-align: center; }
+.project-media-error p { margin: 0 0 10px; }
+.project-media-error button { background: transparent; border: 1px solid currentColor; border-radius: 0; color: inherit; cursor: pointer; font: inherit; min-height: 44px; min-width: 96px; padding: 8px 16px; }
+.project-media-error button:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.project-media-error-dialog { left: 50%; max-width: calc(100% - 24px); position: absolute; top: 50%; transform: translate(-50%, -50%); width: max-content; }
+.project-image-dialog-failure[data-has-poster="true"] .project-media-error-dialog { bottom: 12px; top: auto; transform: translateX(-50%); }

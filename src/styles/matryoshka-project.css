@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@500&family=Noto+Serif+JP:wght@400;700&display=swap");
+
+.matryoshka-project-page {
+  background: #d5dcdc;
+  color: #e6e6e6;
+  font-family: "Noto Serif JP", Georgia, serif;
+  min-height: 100svh;
+  overflow-x: clip;
+  padding-bottom: 96px;
+  position: relative;
+}
+
+/* Match the cover's unmodified neutral backdrop so the artwork stays the color focus. */
+.matryoshka-fixed-background {
+  background: #d5dcdc;
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+}
+
+.matryoshka-chrome {
+  color: #d9d9d9;
+  font-family: "Noto Sans JP", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.18;
+  mix-blend-mode: difference;
+  position: fixed;
+  z-index: 30;
+}
+.matryoshka-version {
+  color: inherit;
+  left: 50.752px;
+  position: fixed;
+  text-decoration: none;
+  top: 35.522px;
+  white-space: nowrap;
+}
+.matryoshka-version-box {
+  height: 38px;
+  left: 195px;
+  max-width: 454px;
+  overflow: hidden;
+  position: fixed;
+  right: 430px;
+  top: 25px;
+}
+.matryoshka-version-box span {
+  animation: matryoshka-version-scroll 14s linear infinite;
+  display: inline-block;
+  padding-left: 100%;
+  position: relative;
+  top: 10.5px;
+  white-space: nowrap;
+}
+.matryoshka-nav {
+  display: flex;
+  gap: 38px;
+  position: fixed;
+  right: 57px;
+  top: 35.522px;
+}
+.matryoshka-nav a { color: inherit; text-decoration: none; white-space: nowrap; }
+.matryoshka-project-page a:focus-visible { outline: 1px solid currentColor; outline-offset: 7px; }
+
+.matryoshka-project-page .matryoshka-navigation-fade-layer {
+  clip-path: inset(max(0px, var(--matryoshka-fade-clear)) 0 0 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--matryoshka-fade-clear), #000 var(--matryoshka-fade-full));
+  mask-image: linear-gradient(to bottom, transparent var(--matryoshka-fade-clear), #000 var(--matryoshka-fade-full));
+}
+.matryoshka-project-page .matryoshka-navigation-fade-layer:focus-visible { outline-offset: -1px; }
+
+.matryoshka-hero {
+  align-items: end;
+  display: grid;
+  gap: clamp(36px, 6vw, 86px);
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.7fr);
+  margin: 0 auto;
+  max-width: 1600px;
+  min-height: min(905px, 100svh);
+  padding: 144px clamp(24px, 7.6vw, 110px) 80px;
+  position: relative;
+}
+.matryoshka-heading { display: flex; flex-direction: column; gap: 30px; min-width: 0; }
+.matryoshka-heading > *,
+.matryoshka-metadata dt,
+.matryoshka-metadata dd,
+.matryoshka-intro > p,
+.matryoshka-back-link { color: #e6e6e6; mix-blend-mode: difference; position: relative; z-index: 5; }
+.matryoshka-heading > * { margin: 0; }
+.matryoshka-date { font-size: 15px; line-height: 1.6; }
+.matryoshka-heading h1 { font-size: 32px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.matryoshka-type { font-size: 20px; line-height: 1.6; }
+.matryoshka-cover { margin: 0; min-width: 0; position: relative; z-index: 5; }
+.matryoshka-cover > img { display: block; height: auto; width: 100%; }
+.matryoshka-information {
+  display: grid;
+  gap: 64px clamp(48px, 8vw, 120px);
+  grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
+  margin: 0 auto;
+  max-width: 1600px;
+  padding: 80px clamp(24px, 7.6vw, 110px) 64px;
+  position: relative;
+}
+.matryoshka-metadata { display: grid; gap: 32px 28px; grid-template-columns: max-content minmax(0, 1fr); margin: 0; }
+.matryoshka-metadata-row { display: contents; }
+.matryoshka-metadata dt, .matryoshka-metadata dd { font-size: 15px; line-height: 1.8; margin: 0; }
+.matryoshka-metadata dt { font-weight: 700; }
+.matryoshka-metadata dd { overflow-wrap: anywhere; text-align: right; white-space: pre-line; }
+.matryoshka-intro > p { font-size: 18px; line-height: 1.9; margin: 0 0 24px; }
+.matryoshka-intro > p:last-child { margin-bottom: 0; }
+.matryoshka-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  margin: 48px auto 0;
+  max-width: 1220px;
+  padding: 0 clamp(24px, 4vw, 64px);
+  position: relative;
+}
+.matryoshka-gallery-group { display: grid; gap: 32px; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.matryoshka-gallery-group-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.matryoshka-gallery-group-portrait { align-self: center; max-width: 620px; width: 62%; }
+.matryoshka-photograph { margin: 0; min-width: 0; position: relative; z-index: 5; }
+.matryoshka-photograph > img { display: block; height: auto; width: 100%; }
+.matryoshka-back-link { display: block; font-family: "Noto Sans JP", system-ui, sans-serif; font-size: 14px; margin: 96px auto 0; text-decoration: none; width: fit-content; }
+
+@keyframes matryoshka-version-scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@media (max-width: 920px) {
+  .matryoshka-version-box { display: none; }
+  .matryoshka-hero { align-items: start; gap: 40px; grid-template-columns: minmax(0, 1fr); min-height: auto; padding: 144px 24px 0; }
+  .matryoshka-heading { gap: 18px; }
+  .matryoshka-gallery { gap: 56px; margin-top: 64px; padding: 0 24px; }
+  .matryoshka-gallery-group { gap: 24px; }
+  .matryoshka-information { gap: 48px; grid-template-columns: minmax(0, 1fr); padding: 56px 24px 0; }
+  .matryoshka-metadata { max-width: 560px; width: 100%; }
+  .matryoshka-back-link { margin-top: 72px; }
+}
+@media (max-width: 700px) {
+  .matryoshka-project-page { padding-bottom: 64px; }
+  .matryoshka-chrome { font-size: 12px; }
+  .matryoshka-version { left: 16px; top: 18px; }
+  .matryoshka-nav { gap: 16px; left: 16px; right: auto; top: 46px; }
+  .matryoshka-hero { padding-top: 132px; }
+  .matryoshka-gallery { gap: 40px; }
+  .matryoshka-gallery-group-pair { grid-template-columns: minmax(0, 1fr); }
+  .matryoshka-gallery-group-portrait { width: 100%; }
+  .matryoshka-heading h1 { font-size: 28px; }
+  .matryoshka-type { font-size: 17px; }
+  .matryoshka-metadata { gap: 24px 18px; }
+  .matryoshka-metadata dt, .matryoshka-metadata dd { font-size: 14px; }
+  .matryoshka-intro > p { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .matryoshka-version-box span { animation: none; padding-left: 0; }
+}
+
+@media (min-width: 921px) {
+  .matryoshka-hero { padding-bottom: clamp(128px, 18svh, 164px); }
+}

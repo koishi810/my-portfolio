@@ -10,6 +10,7 @@ export default function DesignStage({ children }) {
     <div
       className="portfolio-design-shell"
       style={{
+        "--portfolio-stage-scale": scale,
         height: `${DESIGN_HEIGHT * scale}px`,
         width: `${DESIGN_WIDTH * scale}px`,
       }}

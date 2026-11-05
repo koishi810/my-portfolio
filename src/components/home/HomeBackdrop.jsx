@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { mix } from "../../hooks/useScrollProgress.js";
+import { mixPointerPosition } from "../../hooks/useScrollProgress.js";
 
 export function HomeBackground() {
   const backgroundRef = useRef(null);
@@ -8,34 +8,56 @@ export function HomeBackground() {
     let frameId = null;
     const current = { x: 0, y: 0 };
     const target = { x: 0, y: 0 };
+    let paintedBackground = null;
+    let requestedTransform = null;
+    let appliedTransform = null;
 
     const updateTarget = (event) => {
       const halfWidth = window.innerWidth / 2 || 1;
       const halfHeight = window.innerHeight / 2 || 1;
       target.x = ((event.clientX - halfWidth) / halfWidth) * 6;
       target.y = ((event.clientY - halfHeight) / halfHeight) * 3.5;
+      schedule();
     };
 
     const resetTarget = () => {
       target.x = 0;
       target.y = 0;
+      schedule();
     };
 
     const tick = () => {
-      current.x = mix(current.x, target.x, 0.08);
-      current.y = mix(current.y, target.y, 0.08);
+      frameId = null;
+      const previousX = current.x;
+      const previousY = current.y;
+      current.x = mixPointerPosition(current.x, target.x, 0.08);
+      current.y = mixPointerPosition(current.y, target.y, 0.08);
 
-      if (backgroundRef.current) {
-        backgroundRef.current.style.transform = `translate3d(${current.x}px, ${current.y}px, 0) scale(1.08)`;
+      const background = backgroundRef.current;
+      if (background) {
+        const transform = `translate3d(${current.x}px, ${current.y}px, 0) scale(1.08)`;
+        // CSSOM can normalize transform syntax. Keep both forms so identical
+        // positions do not cause writes, while changed/replaced nodes still sync.
+        if (paintedBackground !== background || requestedTransform !== transform || background.style.transform !== appliedTransform) {
+          if (background.style.transform !== transform) background.style.transform = transform;
+          paintedBackground = background;
+          requestedTransform = transform;
+          appliedTransform = background.style.transform;
+        }
       }
 
-      frameId = window.requestAnimationFrame(tick);
+      // Keep the original easing until the subpixel terminal snap, then stop.
+      // Keep checking while a ref has not mounted yet.
+      if (!background || current.x !== previousX || current.y !== previousY) schedule();
+    };
+    const schedule = () => {
+      if (frameId === null) frameId = window.requestAnimationFrame(tick);
     };
 
     window.addEventListener("pointermove", updateTarget);
     window.addEventListener("pointerleave", resetTarget);
     window.addEventListener("blur", resetTarget);
-    frameId = window.requestAnimationFrame(tick);
+    schedule();
 
     return () => {
       window.removeEventListener("pointermove", updateTarget);

@@ -1,0 +1,55 @@
+.koko-project-page .legacy-detail-fade-layer,
+.flower-project-page .legacy-detail-fade-layer {
+  clip-path: inset(max(0px, var(--legacy-fade-clear)) 0 0 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--legacy-fade-clear), #000 var(--legacy-fade-full));
+  mask-image: linear-gradient(to bottom, transparent var(--legacy-fade-clear), #000 var(--legacy-fade-full));
+}
+
+.koko-project-page .legacy-detail-fade-layer:focus-visible,
+.flower-project-page .legacy-detail-fade-layer:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: -1px;
+}
+
+/* Preserve the original rotated PNG footprint while giving the unrotated mask
+   a four-pixel paint margin. The content and outer flex footprint stay 92px. */
+.flower-project-page .flower-feeling-images {
+  margin: -4px;
+  min-height: 100px;
+  padding: 4px;
+}
+
+/* The backdrop is the original image/filter stack, not a new panel colour.
+   Its full-size inner geometry and shared pointer transform are retained.
+   Only this final, viewport-fixed band is masked. */
+.koko-navigation-fade {
+  display: none;
+  pointer-events: none;
+}
+
+.koko-fixed-navigation-fade > .koko-navigation-fade {
+  --koko-navigation-clear: 64px;
+  --koko-navigation-full: 92px;
+  display: block;
+  height: var(--koko-navigation-full);
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 20;
+  -webkit-mask-image: linear-gradient(to bottom, #000 var(--koko-navigation-clear), transparent var(--koko-navigation-full));
+  mask-image: linear-gradient(to bottom, #000 var(--koko-navigation-clear), transparent var(--koko-navigation-full));
+}
+
+.koko-navigation-fade > .koko-fixed-background {
+  /* The PNG contains alpha; reproduce the page's existing underlay too. */
+  background: #050505;
+  position: absolute;
+}
+
+@media (max-width: 700px) {
+  .koko-fixed-navigation-fade > .koko-navigation-fade {
+    --koko-navigation-clear: 72px;
+    --koko-navigation-full: 112px;
+  }
+}

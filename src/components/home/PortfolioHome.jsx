@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useScrollProgress, useStageMetrics } from "../../hooks/useScrollProgress.js";
+import useHomeNavigationFade from "../../hooks/useHomeNavigationFade.js";
 import AboutSection from "./AboutSection.jsx";
 import ContactSection from "./ContactSection.jsx";
 import { HomeBackground, HomeMask } from "./HomeBackdrop.jsx";
@@ -19,6 +20,8 @@ function useHomePhase(aboutRef, worksRef, contactRef, viewportHeight) {
 
   useEffect(() => {
     let frameId = null;
+    const finalTitle = worksRef.current?.querySelector(".portfolio-all-works h2");
+    const finalAction = worksRef.current?.querySelector(".portfolio-all-works .portfolio-more-button");
 
     const updatePhase = () => {
       const threshold = viewportHeight * 0.55;
@@ -26,7 +29,15 @@ function useHomePhase(aboutRef, worksRef, contactRef, viewportHeight) {
       const worksTop = worksRef.current?.getBoundingClientRect().top ?? Infinity;
       const aboutTop = aboutRef.current?.getBoundingClientRect().top ?? Infinity;
 
-      if (contactTop <= threshold) {
+      // The final title and MORE label must reach the existing transparent
+      // navigation band before the Works backdrop begins fading out.
+      const clearY = window.innerWidth <= 700 ? 72 : 64;
+      const titleBottom = finalTitle?.getBoundingClientRect().bottom ?? contactTop;
+      const actionBounds = finalAction?.getBoundingClientRect();
+      const actionCenter = actionBounds ? (actionBounds.top + actionBounds.bottom) / 2 : contactTop;
+      const worksTextCleared = titleBottom <= clearY && actionCenter <= clearY;
+
+      if (contactTop <= threshold && worksTextCleared) {
         setPhase("contact");
       } else if (worksTop <= threshold) {
         setPhase("works");
@@ -50,6 +61,7 @@ function useHomePhase(aboutRef, worksRef, contactRef, viewportHeight) {
 }
 
 export default function PortfolioHome() {
+  const pageRef = useHomeNavigationFade();
   const heroRef = useRef(null);
   const aboutRef = useRef(null);
   const worksRef = useRef(null);
@@ -57,13 +69,13 @@ export default function PortfolioHome() {
   const { scale, viewportHeight } = useStageMetrics(DESIGN_WIDTH, DESIGN_HEIGHT);
   const phase = useHomePhase(aboutRef, worksRef, contactRef, viewportHeight);
   const heroProgress = useScrollProgress(heroRef, { easing: 0.1, smooth: true, viewportHeight });
-  const aboutProgress = useScrollProgress(aboutRef, { easing: 0.1, smooth: true, viewportHeight });
+  const aboutProgress = useScrollProgress(aboutRef, { easing: 0.1, smooth: true, viewportHeight, preserveOnResize: true });
   const heroHeight = viewportHeight + (HERO_LENGTH - DESIGN_HEIGHT) * scale * HERO_SCROLL_MULTIPLIER;
   const aboutHeight =
     viewportHeight + DESIGN_HEIGHT * scale * 2 + (ABOUT_LENGTH - DESIGN_HEIGHT) * scale * ABOUT_SCROLL_MULTIPLIER;
 
   return (
-    <main className={`portfolio-home portfolio-phase-${phase}`} style={{ "--stable-vh": `${viewportHeight}px` }}>
+    <main className={`portfolio-home portfolio-phase-${phase}`} ref={pageRef} style={{ "--stable-vh": `${viewportHeight}px` }}>
       <HomeBackground />
       <HomeMask phase={phase} />
       <HomeChrome />

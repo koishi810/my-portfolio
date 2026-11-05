@@ -1,3 +1,4 @@
+import { useLayoutEffect, useRef } from "react";
 import ScrollImageSequence from "../motion/ScrollImageSequence.jsx";
 import { mix, progressBetween } from "../../hooks/useScrollProgress.js";
 import DesignStage from "./DesignStage.jsx";
@@ -37,6 +38,16 @@ export default function AboutSection({ sectionRef, progress, height }) {
   const textProgress = progressBetween(progress, 0.45, 0.75);
   const moreProgress = progressBetween(progress, 0.75, 0.9);
   const subjectTop = mix(611.6108, 136.262, entryProgress);
+  const moreRef = useRef(null);
+  const moreVisible = moreProgress > 0;
+
+  useLayoutEffect(() => {
+    // Changing tabIndex does not release focus already on the fading link.
+    // Do not pull the reader back or move focus to a different control.
+    if (!moreVisible && document.activeElement === moreRef.current) {
+      moreRef.current?.blur();
+    }
+  }, [moreVisible]);
 
   return (
     <section className="portfolio-about-section portfolio-scroll-section" id="about" ref={sectionRef} style={{ height }}>
@@ -79,9 +90,14 @@ export default function AboutSection({ sectionRef, progress, height }) {
             <a
               className="portfolio-more-button portfolio-about-more"
               href="/about"
+              ref={moreRef}
+              tabIndex={moreVisible ? 0 : -1}
+              onClick={(event) => {
+                if (!moreVisible) event.preventDefault();
+              }}
               style={{
                 opacity: moreProgress,
-                pointerEvents: moreProgress > 0 ? "auto" : "none",
+                pointerEvents: moreVisible ? "auto" : "none",
                 transform: `translateY(${(1 - moreProgress) * 8}px)`,
               }}
             >

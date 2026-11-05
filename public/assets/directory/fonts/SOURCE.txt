@@ -1,0 +1,5 @@
+Source: https://github.com/google/fonts/blob/main/ofl/cormorantinfant/CormorantInfant%5Bwght%5D.ttf
+Downloaded 2026-10-09. Original file unchanged.
+SHA256: 48c6efe07539c75d3108795467898706a9cd71ce876d461e45f58482156d7bf3
+License: SIL Open Font License1.1, OFL.txt included.
+Full font includes true smcp/c2sc; Google CSS API omits optional smallcaps features.

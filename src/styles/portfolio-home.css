@@ -30,7 +30,8 @@
 }
 
 .portfolio-phase-works .portfolio-global-background img {
-  filter: grayscale(1) invert(1) brightness(1.04) contrast(0.82);
+  /* Approved Home Works background softness; artwork layers stay sharp. */
+  filter: grayscale(1) invert(1) brightness(1.10) contrast(0.82) blur(15px);
 }
 
 .portfolio-global-mask {
@@ -78,6 +79,9 @@
 }
 
 .portfolio-global-mask-works .portfolio-mask-light {
+  /* Blur the background image paint once, outside the text/image stage. */
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
   background: rgba(255, 255, 255, 0.01);
   opacity: 1;
 }
@@ -648,8 +652,9 @@
 .portfolio-contact-section {
   align-items: center;
   display: flex;
-  min-height: var(--stable-vh, 100svh);
-  min-height: max(var(--stable-vh, 100svh), 100dvh);
+  /* Static contact content follows the visible height, not the animation lock. */
+  min-height: 100vh;
+  min-height: 100dvh;
   justify-content: center;
   padding-bottom: env(safe-area-inset-bottom, 0);
   position: relative;
@@ -800,7 +805,7 @@
   }
 
   .portfolio-hero-field {
-    font-size: 25px;
+    font-size: max(25px, calc(12px / var(--portfolio-stage-scale)));
   }
 
   .portfolio-hero-note {
@@ -810,6 +815,16 @@
   .portfolio-about-section .portfolio-design-shell {
     transform: scale(2.128);
     transform-origin: center center;
+  }
+
+  /* Counter the two existing stage scales, without resizing the scene. */
+  .portfolio-about-small-title {
+    font-size: max(14px, calc(12px / var(--portfolio-stage-scale) / 2.128));
+    width: max(14px, calc(12px / var(--portfolio-stage-scale) / 2.128));
+  }
+
+  .portfolio-about-more {
+    font-size: clamp(12px, calc(12px / var(--portfolio-stage-scale) / 2.128), 23px);
   }
 
   .portfolio-works-title {
@@ -833,7 +848,7 @@
 
   .portfolio-work-date,
   .portfolio-work-description {
-    font-size: 10.5px;
+    font-size: 14px;
     line-height: 1.6;
   }
 
@@ -848,3 +863,51 @@
     display: none;
   }
 }
+
+/* Same navigation-band fade as the directory, applied to existing foreground
+   layers only. Never mask the scene wrapper or replace the work-card clip. */
+.portfolio-home .portfolio-home-fade-layer {
+  clip-path: inset(max(0px, var(--home-fade-clear)) 0 0 0);
+  -webkit-mask-image: linear-gradient(to bottom, transparent var(--home-fade-clear), #000 var(--home-fade-full));
+  mask-image: linear-gradient(to bottom, transparent var(--home-fade-clear), #000 var(--home-fade-full));
+}
+
+.portfolio-home .portfolio-home-fade-layer:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: -1px;
+}
+
+/* Keep Contact's existing 320px-height bottom clearance on shorter screens.
+   The compensation meets the normal rule continuously at 320px; no stage lock changes. */
+@media (max-height: 320px) {
+  .portfolio-contact-section {
+    min-height: calc(200vh - 320px);
+    min-height: calc(200dvh - 320px);
+  }
+}
+
+/* Keyboard reading follows the directory; ordinary pointer scrolling stays sticky. */
+.portfolio-home .portfolio-work-item.works-keyboard-reading {
+  position: relative;
+  top: auto;
+}
+
+/* Contact is text-only: blend its outer stacking layer with the real photo. */
+.portfolio-contact-section { mix-blend-mode: difference; }
+.portfolio-contact-copy,
+.portfolio-contact-copy h2,
+.portfolio-contact-copy a { mix-blend-mode: normal; }
+
+/* Review-only white-source difference comparison requested across pages.
+   Trapped card/hero text uses the existing document-level text ink layer. */
+.portfolio-phase-works .portfolio-work-text > * {
+  color: #fff;
+  filter: none;
+  mix-blend-mode: difference;
+}
+.portfolio-hero-copy { mix-blend-mode: normal; }
+.portfolio-hero-field { color: #fff; mix-blend-mode: difference; }
+.portfolio-contact-section { mix-blend-mode: difference; }
+
+/* Temporary visual comparison: photo brightness only. */
+.portfolio-phase-contact .portfolio-global-background img { filter: grayscale(1) brightness(1.10); }

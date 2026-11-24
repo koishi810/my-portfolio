@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { matchRoutes, Route, Routes, useLocation } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import SelectedWorks from "./pages/SelectedWorks.jsx";
 import Home from "./pages/Home.jsx";
 import Works from "./pages/Works.jsx";
 import About from "./pages/About.jsx";
@@ -40,6 +41,7 @@ const backdropTextScopes = {
 };
 
 const routes = [
+  { path: "/selected", element: <SelectedWorks />, layout: "immersive" },
   { path: "/", element: <Home />, layout: "immersive" },
   { path: "/works", element: <Works />, layout: "immersive" },
   { path: "/about", element: <About />, layout: "immersive" },

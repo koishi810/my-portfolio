@@ -10,6 +10,7 @@ const groups = [
   ["lantern-signs", "pipe-joint", "slope-sign"],
   ["lamp-branches", "boat-water", "dogs-leaves"],
   ["figure-railing", "slide-buildings"],
+  ["autumn-streetlamp", "playground-warning-tape"],
 ];
 const byId = new Map(photographs.map(item => [item.id, item]));
 

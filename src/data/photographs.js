@@ -16,4 +16,6 @@ export const photographs = [
   { id: "dogs-leaves", src: "/assets/photography/dogs-leaves.jpg", alt: "落ち葉の上にいる三匹の犬", width: 1536, height: 1024 },
   { id: "figure-railing", src: "/assets/photography/figure-railing.jpg", alt: "建物を背景に、欄干のそばで携帯を見る人物", width: 1024, height: 1536 },
   { id: "slide-buildings", src: "/assets/photography/slide-buildings.jpg", alt: "柵の間に見える滑り台と建物", width: 1024, height: 1536 },
+  { id: "autumn-streetlamp", src: "/assets/photography/autumn-streetlamp.jpg", alt: "夕暮れの黄葉を照らす街灯", width: 1024, height: 1536 },
+  { id: "playground-warning-tape", src: "/assets/photography/playground-warning-tape.jpg", alt: "青い空を背に、黄色い注意テープが巻かれた錆びた手すり", width: 1024, height: 1536 },
 ];

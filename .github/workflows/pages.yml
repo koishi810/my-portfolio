@@ -30,6 +30,8 @@ jobs:
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3 (upload-artifact v4, compatible with deploy-pages)
         with:
           path: dist
+      - name: Wait for uploaded artifact metadata
+        run: sleep 45
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5

@@ -39,7 +39,7 @@ const imagePages = Array.from({ length: IMAGE_END_PAGE - IMAGE_START_PAGE + 1 },
   return {
     id: `koko-image-page-${pageNumber}`,
     number: pageNumber,
-    src: `/assets/projects/koko/pages/page-${String(pageNumber).padStart(3, "0")}.png${pageNumber === 7 || pageNumber === 11 ? "?v=qr-20261127" : ""}`,
+    src: `/assets/projects/koko/pages/page-${String(pageNumber).padStart(3, "0")}.png${[7, 9, 11].includes(pageNumber) ? "?v=qr-20261127" : ""}`,
   };
 });
 
